@@ -50,19 +50,21 @@ h1{
 } */
 
 .pf {
-    width: 150px;
-    height: 200px;
+    width: 300px;
+    height: 400px;
     position: relative;
     margin: 5px;
     float: right;
-    background: url("NatalieTarnmin.jpg") no-repeat;
+    background: url("NatalieTarnming.jpg") no-repeat;
+    background-size: contain;
 }
-/* resize pf */
+/* 
 .pf img {
    width: 50%;
    height: 75%;
 } */
 
 .pf:hover {
-    background: url("NatalieTarnming.jpg") no-repeat;
+    background: url("NatalieTarnmin.jpg") no-repeat;
+    background-size: contain;
 }
