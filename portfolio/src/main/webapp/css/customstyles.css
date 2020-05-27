@@ -49,14 +49,20 @@ h1{
     display: inline;
 } */
 
-.card {
-    width: 25%;
-    height: 75%;
+.pf {
+    width: 150px;
+    height: 200px;
     position: relative;
     margin: 5px;
     float: right;
-    background: url("assets/img/NatalieTarnming.jpg") no-repeat;
+    background: url("NatalieTarnmin.jpg") no-repeat;
 }
-.card:hover {
-    background: url("images/NatalieTarn.jpg") no-repeat;
+/* resize pf */
+.pf img {
+   width: 50%;
+   height: 75%;
+} */
+
+.pf:hover {
+    background: url("NatalieTarnming.jpg") no-repeat;
 }
