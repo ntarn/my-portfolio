@@ -49,7 +49,7 @@ h1{
     display: inline;
 } */
 
-.pf {
+.pfpic {
     width: 300px;
     height: 400px;
     position: relative;
@@ -58,13 +58,8 @@ h1{
     background: url("NatalieTarnming.jpg") no-repeat;
     background-size: contain;
 }
-/* 
-.pf img {
-   width: 50%;
-   height: 75%;
-} */
 
-.pf:hover {
+.pfpic:hover {
     background: url("NatalieTarnmin.jpg") no-repeat;
     background-size: contain;
 }
@@ -78,9 +73,11 @@ h1{
   line-height: 3rem;
   color: rgba(255, 255, 255, 0.3);
 }
+
 .contact-section .social a:hover {
   color: rgba(255, 255, 255, 0.5);
 }
+
 .contact-section .social a:active {
   color: #fff;
 }
