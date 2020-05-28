@@ -49,6 +49,7 @@ h1{
     display: inline;
 } */
 
+/* changing grayscale profile picture to colored when hovered over */
 .pfpic {
     width: 300px;
     height: 400px;
@@ -64,20 +65,24 @@ h1{
     background-size: contain;
 }
 
-.contact-section .social a {
+.project-icons{
+    margin-top: 0.5rem;
+}
+
+.project-icons a {
   text-align: center;
-  height: 3rem;
-  width: 3rem;
-  background: rgba(255, 255, 255, 0.1);
+  height: 1.5rem;
+  width: 1.5rem;
+  background: rgba(100, 161, 157, 1);
   border-radius: 100%;
   line-height: 3rem;
   color: rgba(255, 255, 255, 0.3);
 }
 
-.contact-section .social a:hover {
+.project-icons a:hover {
   color: rgba(255, 255, 255, 0.5);
 }
 
-.contact-section .social a:active {
-  color: #fff;
+.project-icons a:active {
+  color: rgba(255, 255, 255, 1);
 }
