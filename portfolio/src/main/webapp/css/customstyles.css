@@ -49,14 +49,40 @@ h1{
     display: inline;
 } */
 
-.card {
-    width: 25%;
-    height: 75%;
+/* changing grayscale profile picture to colored when hovered over */
+.pfpic {
+    width: 300px;
+    height: 400px;
     position: relative;
     margin: 5px;
     float: right;
-    background: url("assets/img/NatalieTarnming.jpg") no-repeat;
+    background: url("NatalieTarnming.jpg") no-repeat;
+    background-size: contain;
 }
-.card:hover {
-    background: url("images/NatalieTarn.jpg") no-repeat;
+
+.pfpic:hover {
+    background: url("NatalieTarnmin.jpg") no-repeat;
+    background-size: contain;
+}
+
+.project-icons{
+    margin-top: 0.5rem;
+}
+
+.project-icons a {
+  text-align: center;
+  height: 1.5rem;
+  width: 1.5rem;
+  background: rgba(100, 161, 157, 1);
+  border-radius: 100%;
+  line-height: 3rem;
+  color: rgba(255, 255, 255, 0.3);
+}
+
+.project-icons a:hover {
+  color: rgba(255, 255, 255, 0.5);
+}
+
+.project-icons a:active {
+  color: rgba(255, 255, 255, 1);
 }
