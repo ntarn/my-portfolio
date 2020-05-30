@@ -26,7 +26,7 @@
                     <ul class="navbar-nav ml-auto">
                         <li class="nav-item"><a class="nav-link js-scroll-trigger" href="#about">About</a></li>
                         <li class="nav-item"><a class="nav-link js-scroll-trigger" href="#projects">Portfolio</a></li>
-                        <li class="nav-item"><a class="nav-link js-scroll-trigger" href="#signup">Contact</a></li>
+                        <li class="nav-item"><a class="nav-link js-scroll-trigger" href="#contact">Contact</a></li>
                         <!DOCTYPE html>
                     </ul>
                 </div>
@@ -39,10 +39,11 @@
                     <h2 class="text-white-50 mx-auto mt-2 mb-2">Hi, my name is</h2>
                     <h1 class="mx-auto my-0 text-uppercase">Natalie Tarn</h1>
                     <h2 class="text-white-50 mx-auto mt-2 mb-5">I'm a junior at Duke University and a software engineer with a passion for AI/ML and the planet.</h2>
-                    <a class="btn btn-primary js-scroll-trigger" href="#signup">Get In Touch</a>
+                    <a class="btn btn-primary js-scroll-trigger" href="contact">Get In Touch</a>
                 </div>
             </div>
         </header>
+        <!-- TODO: add bullet point of technologies -->
         <!-- About-->
         <section class="about-section text-left" id="about">
             <div class="container">
@@ -63,18 +64,24 @@
                 </div>
             </div>
         </section>
+        <!-- TODO: change descriptions to bullet points -->
         <!-- Projects-->
         <section class="projects-section bg-light" id="projects">
             <div class="container">
                 <!-- Featured Project Row-->
                 <div class="row align-items-center no-gutters mb-4 mb-lg-5">
-                    <div class="col-xl-8 col-lg-7"><img class="img-fluid mb-3 mb-lg-0" src="assets/img/bg-masthead.jpg" alt="" /></div>
+                    <div class="col-xl-8 col-lg-7">
+                        <div class="resizewebappimg">
+                            <img class="img-fluid mb-3 mb-lg-0" src="assets/img/webapps.svg" alt="" />
+                        </div>
+                        
+                    </div>
                     <div class="col-xl-4 col-lg-5">
                         <div class="featured-text text-center text-lg-left">
-                            <h4>Front End at Google</h4>
-                            <p class="text-black-50 mb-0">Developed this portfolio, Implemented a web application that does X, Y and Z.</p>
+                            <h4>Front End @ Google</h4>
+                            <p class="text-black-50 mb-0">Developed this portfolio, Implemented a web application that does X, Y and Zssssss.</p>
                             <hr class="d-none d-lg-block mb-0 ml-0" />
-                            <div class="project-icons d-flex justify-content-start">
+                            <div class="social d-flex justify-content-start">
                                 <a href="https://github.com/ntarn"><i class="fab fa-github"></i></a>
                             </div>
                         </div>
@@ -82,19 +89,26 @@
                 </div>
                 <!-- Project One Row-->
                 <div class="row justify-content-center no-gutters mb-5 mb-lg-0">
-                    <div class="col-lg-6"><img class="img-fluid" src="assets/img/demo-image-01.jpg" alt="" /></div>
+                    <div class="col-lg-6">
+                        <div class="resizemobiletesting">
+                            <img class="img-fluid" src="assets/img/mobiletesting.svg" alt="" />
+                        </div>
+                    </div>
                     <div class="col-lg-6">
                         <div class="bg-black text-center h-100 project">
                             <div class="d-flex h-100">
                                 <div class="project-text w-100 my-auto text-center text-lg-left">
-                                    <h4 class="text-white">Misty</h4>
-                                    <p class="mb-0 text-white-50">An example of where you can put an image of a project, or anything else, along with a description.</p>
+                                    <h4 class="text-white">Full Stack @ AiCure</h4>
+                                    <p class="mb-0 text-white-50">Built product features from the database all the way to UI, Implemented e2e UI automation testing framework, Built AWS API gateway integration testing framework, 
+                                        Developed ETL tools to support our application testing environment data setup and migration
+                                    </p>
                                     <hr class="d-none d-lg-block mb-0 ml-0" />
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
+                <!-- TODO: add link to paper, replace image -->
                 <!-- Project Two Row-->
                 <div class="row justify-content-center no-gutters">
                     <div class="col-lg-6"><img class="img-fluid" src="assets/img/demo-image-02.jpg" alt="" /></div>
@@ -102,8 +116,9 @@
                         <div class="bg-black text-center h-100 project">
                             <div class="d-flex h-100">
                                 <div class="project-text w-100 my-auto text-center text-lg-right">
-                                    <h4 class="text-white">Mountains</h4>
-                                    <p class="mb-0 text-white-50">Another example of a project with its respective description. These sections work well responsively as well, try this theme on a small screen!</p>
+                                    <h4 class="text-white">CodaLab Competition: Sarcasm Detection</h4>
+                                    <p class="mb-0 text-white-50">Implemented word, sentence-level embeddings, and attention LSTM models, ELMo embeddings with different classifiers using Python (keras, tensorflow) to detect sarcasm in tweets and Reddit posts, obtaining 8th place with a f1 score of 0.756
+                                        Paper will be published at the FigLang 2020 which includes literature about different word embeddings, transformers (BERT, ELMo), and additional classifiers that further improved performance</p>
                                     <hr class="d-none d-lg-block mb-0 mr-0" />
                                 </div>
                             </div>
@@ -112,8 +127,8 @@
                 </div>
             </div>
         </section>
-        <!-- Signup-->
-        <section class="signup-section" id="signup">
+        <!-- Might Reuse this code later on Signup-->
+        <!-- <section class="signup-section" id="signup">
             <div class="container">
                 <div class="row">
                     <div class="col-md-10 col-lg-8 mx-auto text-center">
@@ -123,28 +138,33 @@
                     </div>
                 </div>
             </div>
-        </section>
+        </section> -->
+        <!-- TODO: change links -->
         <!-- Contact-->
-        <section class="contact-section bg-black">
+        <section class="contact-section bg-black" id="contact">
             <div class="container">
                 <div class="row">
                     <div class="col-md-4 mb-3 mb-md-0">
                         <div class="card py-4 h-100">
                             <div class="card-body text-center">
                                 <i class="fas fa-map-marked-alt text-primary mb-2"></i>
-                                <h4 class="text-uppercase m-0">Address</h4>
+                                <h4 class="text-uppercase m-0">U.S. Fish and Wildlife Service Intern</h4>
                                 <hr class="my-4" />
-                                <div class="small text-black-50">4923 Market Street, Orlando FL</div>
+                                <div class="small text-black-50">Kilauea Point National Wildlife Refuge</div>
+                                <a href="">Learn more</a>
                             </div>
                         </div>
                     </div>
                     <div class="col-md-4 mb-3 mb-md-0">
                         <div class="card py-4 h-100">
                             <div class="card-body text-center">
-                                <i class="fas fa-envelope text-primary mb-2"></i>
-                                <h4 class="text-uppercase m-0">Email</h4>
+                                <i class="text-primary mb-2">
+                                    <!--TODO: Resize <img class="" src="assets/img/browser.svg" alt="" /> -->
+                                </i>
+                                <h4 class="text-uppercase m-0">Homework Helper</h4>
                                 <hr class="my-4" />
-                                <div class="small text-black-50"><a href="#!">hello@yourdomain.com</a></div>
+                                <div class="small text-black-50">Website that generates study guides from notes</div>
+                                <a href="">Learn more</a>
                             </div>
                         </div>
                     </div>
@@ -152,9 +172,10 @@
                         <div class="card py-4 h-100">
                             <div class="card-body text-center">
                                 <i class="fas fa-mobile-alt text-primary mb-2"></i>
-                                <h4 class="text-uppercase m-0">Phone</h4>
+                                <h4 class="text-uppercase m-0">Company Footprint</h4>
                                 <hr class="my-4" />
-                                <div class="small text-black-50">+1 (555) 902-8832</div>
+                                <div class="small text-black-50">Android app that shows environmental impacts of products' corporations</div>
+                                <a href="">Learn more</a>
                             </div>
                         </div>
                     </div>
