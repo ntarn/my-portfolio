@@ -26,3 +26,10 @@ function addRandomGreeting() {
   const greetingContainer = document.getElementById('greeting-container');
   greetingContainer.innerText = greeting;
 }
+
+//adds Hello Natalie! to the page
+async function getHelloNameUsingAsyncAwait() {
+  const response = await fetch('/data');
+  const name = await response.text();
+  document.getElementById('quote-container').innerText = name;
+}
