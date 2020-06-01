@@ -36,3 +36,12 @@ async function getHelloNameUsingAsyncAwait() {
   console.log('Adding quote to dom: ' + name);
   document.getElementById('quote-container').innerHTML = name;
 }
+
+//fetch
+fetch('/my-data-url')  // sends a request to /my-data-url
+.then(response => response.json()) // parses the response as JSON
+.then((myObject) => { // now we can reference the fields in myObject!
+  console.log(myObject.x);
+  console.log(myObject.y);
+  console.log(myObject.z);
+});
