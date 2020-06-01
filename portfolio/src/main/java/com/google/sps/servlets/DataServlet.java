@@ -21,13 +21,27 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 /** Servlet that returns some example content. TODO: modify this file to handle comments data */
-ArrayList<String> hardcodeMessages = new ArrayList<String>();
 @WebServlet("/data")
 public class DataServlet extends HttpServlet {
 
+  private ArrayList<String> hardcodeMessages = new ArrayList<String>();
+  hardcodeMessages.add("AI");
+  hardcodeMessages.add("ML");
+  hardcodeMessages.add("wildlife conservation");
+
+  private String convertToJsonUsingGson(ArrayList aList) {
+    Gson gson = new Gson();
+    String json = gson.toJson(aList);
+    return json;
+  }
   @Override
   public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
-    response.setContentType("text/html;");
-    response.getWriter().println("<h1>Hello Natalie!</h1>");
+    // Send the JSON as the response
+    String json = convertToJsonUsingGson(hardcodeMessages)
+    response.setContentType("application/json;");
+    response.getWriter().println(json);
+    // Send the html as the response
+    // response.setContentType("text/html;");
+    // response.getWriter().println("<h1>Hello Natalie!</h1>");
   }
 }
