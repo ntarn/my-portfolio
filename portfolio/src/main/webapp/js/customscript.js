@@ -29,7 +29,10 @@ function addRandomGreeting() {
 
 //adds Hello Natalie! to the page
 async function getHelloNameUsingAsyncAwait() {
+  console.log('Fetching Hello Name!');
   const response = await fetch('/data');
+  console.log('Handling the response.');
   const name = await response.text();
-  document.getElementById('quote-container').innerText = name;
+  console.log('Adding quote to dom: ' + name);
+  document.getElementById('quote-container').innerHTML = name;
 }
