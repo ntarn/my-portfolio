@@ -49,7 +49,7 @@ h1{
     display: inline;
 } */
 
-/* changing grayscale profile picture to colored when hovered over */
+/* Changes the grayscale profile picture to colored when hovered over. */
 .pfpic {
     width: 300px;
     height: 400px;
@@ -110,12 +110,8 @@ h1{
   background: rgba(255, 255, 255, 0.1);
 }
 
-/* the extended projects section used to be a contact section so actually fixing extended projects */
+/* The extended projects section used to be a contact section so this actually fixes extended projects. */
 #fixcontactmargin {
   padding-top: 4rem;
   padding-bottom: 4rem;
-}
-
-.resizenlp{
-  width:95%;
 }

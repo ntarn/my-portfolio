@@ -14,6 +14,7 @@
 
 package com.google.sps.servlets;
 
+import com.google.gson.Gson;
 import java.io.IOException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -21,11 +22,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.util.ArrayList;
 import java.util.Arrays;
-import com.google.gson.Gson;
-
 
 /*
- * Servlet that returns some example content. 
+ * A Servlet that returns some example content. 
  * TODO(ntarn): Modify this file to handle comments data.
  */
 @WebServlet("/data")
@@ -35,17 +34,14 @@ public class DataServlet extends HttpServlet {
 	
   @Override
   public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
-    // Send the JSON as the response
+    // Send the JSON as the response.
     String json = convertToJsonUsingGson(hardcodeMessages);
     response.setContentType("application/json;");
     response.getWriter().println(json);
-    // Send the html as the response
-    // response.setContentType("text/html;");
-    // response.getWriter().println("<h1>Hello Natalie!</h1>");
   }
 
   /**
-   * Converts a ServerStats instance into a JSON string using the Gson library. Note: We first added
+   * Converts an ArrayList into a JSON string using the Gson library. Note: We first added
    * the Gson library dependency to pom.xml.
    */
   private String convertToJsonUsingGson(ArrayList aList) {
