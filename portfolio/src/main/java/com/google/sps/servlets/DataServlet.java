@@ -24,7 +24,10 @@ import java.util.Arrays;
 import com.google.gson.Gson;
 
 
-/** Servlet that returns some example content. TODO: modify this file to handle comments data */
+/*
+ * Servlet that returns some example content. 
+ * TODO(ntarn): Modify this file to handle comments data.
+ */
 @WebServlet("/data")
 public class DataServlet extends HttpServlet {
 
