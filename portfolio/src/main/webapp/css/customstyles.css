@@ -50,7 +50,7 @@ h1{
 } */
 
 /* Changes the grayscale profile picture to colored when hovered over. */
-.pfpic {
+.pf-pic {
     width: 300px;
     height: 400px;
     position: relative;
@@ -98,24 +98,27 @@ h1{
   color: rgba(255, 255, 255, 1);
 }
 
-.resizewebappimg {
+/* Project Section Pictures - Resizes and changes background of images. */
+
+.webapp-img {
   width: 90%;
   height: 75%;
   background: rgba(255, 255, 255, 0.1);
 }
 
-.resizemobiletesting {
+.aicure-img {
   width: 95%;
   height: 20%;
   background: rgba(255, 255, 255, 0.1);
 }
 
-/* The extended projects section used to be a contact section so this actually fixes extended projects. */
-#fixcontactmargin {
-  padding-top: 4rem;
-  padding-bottom: 4rem;
+.nlp-img {
+  width: 95%;
+  background: rgba(255, 255, 255, 0.1);
 }
 
-.resizenlp {
-  width: 95%;
+/* The extended projects section used to be a contact section so this adds padding around extended projects. */
+#contact-margin {
+  padding-top: 4rem;
+  padding-bottom: 4rem;
 }
