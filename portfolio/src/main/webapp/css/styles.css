@@ -10279,7 +10279,8 @@ body {
 }
 
 .projects-section {
-  padding: 10rem 0;
+  /* padding: 10rem 0; might need to switch back later*/
+  margin-top: 10rem;
 }
 .projects-section .featured-text {
   padding: 2rem;

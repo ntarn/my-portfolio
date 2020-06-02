@@ -87,7 +87,7 @@
                 <div class="row justify-content-center no-gutters mb-5 mb-lg-0">
                     <div class="col-lg-6">
                         <div class="resizemobiletesting">
-                            <img class="img-fluid" src="assets/img/aicure.svg" alt="" />
+                            <img class="img-fluid" src="assets/img/mobiletesting.svg" alt="" />
                         </div>
                     </div>
                     <div class="col-lg-6">
@@ -104,10 +104,14 @@
                         </div>
                     </div>
                 </div>
-                <!-- TODO: add link to paper, replace image -->
+                <!-- TODO: add link to paper -->
                 <!-- Project Two Row-->
                 <div class="row justify-content-center no-gutters">
-                    <div class="col-lg-6"><img class="img-fluid" src="assets/img/nlp.svg" alt="" /></div>
+                    <div class="col-lg-6"><div style="padding-top:5rem;">
+                        <div style="margin-left:5rem;margin-right:auto;">
+                            <img class="img-fluid resizenlp" src="assets/img/nlp.svg" alt="" />
+                        </div>
+                      </div></div>
                     <div class="col-lg-6 order-lg-first">
                         <div class="bg-black text-center h-100 project">
                             <div class="d-flex h-100">
@@ -125,7 +129,7 @@
         </section>
         <!-- TODO: change links -->
         <!-- Extended Projects-->
-        <section class="contact-section bg-light" id="">
+        <section class="contact-section bg-light" id="fixcontactmargin">
             <div class="container">
                 <div class="row">
                     <div class="col-md-4 mb-3 mb-md-0">
@@ -142,9 +146,8 @@
                     <div class="col-md-4 mb-3 mb-md-0">
                         <div class="card py-4 h-100">
                             <div class="card-body text-center">
-                                <i class="fas fa-school text-primary mb-2">
-                                    <!--TODO: Resize <img class="" src="assets/img/browser.svg" alt="" /> -->
-                                </i>
+                                <i class="fas fa-school text-primary mb-2"></i>
+                                    <!-- TODO: Resize <img class="" src="assets/img/browser.svg" alt="" /> -->
                                 <h4 class="text-uppercase m-0">Homework Helper</h4>
                                 <hr class="my-4" />
                                 <div class="small text-black-50">Website that generates study guides from notes</div>
@@ -167,17 +170,19 @@
             </div>
         </section>
         <!-- Tutorial Section-->
-        <section class="contact-section bg-light" id="contact">
-            <div class="container">
-                <div class="row">
-                    <h1>Testing</h1>
-                    <p>Click here to see a Hello Natalie:</p>
-                    <button onclick="getHelloNameUsingAsyncAwait()">Fetch a Hello Name!</button>
-                    <div id="quote-container"></div>
-                    <p>Click here to see a parsed JSON string:</p>
-                    <button onclick="changeAListJson()">Fetch a JSON string!</button>
-                    <div id="hardcode-messages"></div>
-                </div>          
+        <section class="bg-black" id="contact">
+            <div id="container">
+                <h1>Testing</h1>
+                <p>Click here to see a Hello Natalie:</p>
+                 <button onclick="getHelloNameUsingAsyncAwait()">Fetch a Hello Name!</button>
+                <div id="quote-container"></div>
+                <p>Click here to see a parsed JSON string:</p>
+                <button onclick="changeAListJson()">Fetch a JSON string!</button>
+                <div id="hardcode-messages"></div>
+            </div>
+        </section>
+        <section class="contact-section bg-black" id="">
+            <div class="container">        
                 <div class="social d-flex justify-content-center">
                     <a class="mx-2" href="https://www.linkedin.com/in/natalie-tarn"><i class="fab fa-linkedin-in"></i><a class="mx-2" href="mailto:tarn.natalie@gmail.com"><i class="fas fa-envelope"></i></a><a class="mx-2" href="https://github.com/ntarn"><i class="fab fa-github"></i></a>
                 </div>

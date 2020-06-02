@@ -27,22 +27,21 @@ function addRandomGreeting() {
   greetingContainer.innerText = greeting;
 }
 
-//adds Hello Natalie! to the page
-// async function getHelloNameUsingAsyncAwait() {
-//   console.log('Fetching Hello Name!');
-//   const response = await fetch('/data');
-//   console.log('Handling the response.');
-//   const name = await response.text();
-//   console.log('Adding quote to dom: ' + name);
-//   document.getElementById('quote-container').innerHTML = name;
-// }
+// adds Hello Natalie! to the page
+async function getHelloNameUsingAsyncAwait() {
+  console.log('Fetching Hello Name!');
+  const response = await fetch('/data');
+  console.log('Handling the response.');
+  const name = await response.text();
+  console.log('Adding quote to dom: ' + name);
+  document.getElementById('quote-container').innerHTML = name;
+}
 
 //parse the ArrayList as JSON
 function changeAListJson(){
   fetch('/data')  // sends a request to /my-data-url
   .then(response => response.json()) // parses the response as JSON
   .then((hardcodeMessages) => { // now we can reference the fields in hardcodeMessages!
-  console.log(hardcodeMessages)
   console.log(hardcodeMessages[0]);
   console.log(hardcodeMessages[1]);
   console.log(hardcodeMessages[2]);

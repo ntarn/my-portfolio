@@ -109,3 +109,13 @@ h1{
   height: 20%;
   background: rgba(255, 255, 255, 0.1);
 }
+
+/* the extended projects section used to be a contact section so actually fixing extended projects */
+#fixcontactmargin {
+  padding-top: 4rem;
+  padding-bottom: 4rem;
+}
+
+.resizenlp{
+  width:95%;
+}
