@@ -49,7 +49,7 @@ h1{
     display: inline;
 } */
 
-/* Changes the grayscale profile picture to colored when hovered over. */
+/* Changes the grayscale profile picture to colored when hovered over.*/
 .pf-pic {
     background: url("NatalieTarnming.jpg") no-repeat;
     float: right;
