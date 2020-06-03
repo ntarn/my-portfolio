@@ -51,18 +51,18 @@ h1{
 
 /* Changes the grayscale profile picture to colored when hovered over. */
 .pf-pic {
-    background-size: contain;
     background: url("NatalieTarnming.jpg") no-repeat;
     float: right;
     height: 400px;
     margin: 5px;
     position: relative;
     width: 300px;
+    background-size: contain;
 }
 
-.pfpic:hover {
-    background-size: contain;
+.pf-pic:hover {
     background: url("NatalieTarnmin.jpg") no-repeat;
+    background-size: contain;
 }
 
 .project-icons{
@@ -76,7 +76,6 @@ h1{
     height: 1.5rem;
     text-align: center;
     width: 1.5rem;
-    
 }
 
 .project-icons a {
