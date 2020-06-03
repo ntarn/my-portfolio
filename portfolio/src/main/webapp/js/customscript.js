@@ -37,7 +37,7 @@ async function getHelloNameUsingAsyncAwait() {
   document.getElementById('quote-container').innerHTML = name;
 }
 
-//Parse the hardcode messages as JSON.
+// Parse the hardcode messages as JSON.
 function changeAListJson(){
   fetch('/data')  // Sends a request to /data .
   .then(response => response.json()) // Parses the response as JSON.
@@ -50,7 +50,7 @@ function changeAListJson(){
 });
 }
 
-//Parse the ArrayList comments as JSON.
+// Parse the ArrayList comments as JSON.
 function printComments(){
   fetch('/data')  // Sends a request to /data .
   .then(response => response.json()) // Parses the response as JSON.
