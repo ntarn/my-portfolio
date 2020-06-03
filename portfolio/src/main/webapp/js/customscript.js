@@ -27,7 +27,7 @@ function addRandomGreeting() {
   greetingContainer.innerText = greeting;
 }
 
-// adds Hello Natalie! to the page
+// Adds Hello Natalie! to the page.
 async function getHelloNameUsingAsyncAwait() {
   console.log('Fetching Hello Name!');
   const response = await fetch('/data');
@@ -37,16 +37,27 @@ async function getHelloNameUsingAsyncAwait() {
   document.getElementById('quote-container').innerHTML = name;
 }
 
-//parse the ArrayList as JSON
+//Parse the ArrayList hardcode messages as JSON.
 function changeAListJson(){
-  fetch('/data')  // sends a request to /my-data-url
-  .then(response => response.json()) // parses the response as JSON
-  .then((hardcodeMessages) => { // now we can reference the fields in hardcodeMessages!
+  fetch('/data')  // Sends a request to /data .
+  .then(response => response.json()) // Parses the response as JSON.
+  .then((hardcodeMessages) => { // Now we can reference the fields in hardcodeMessages.
   console.log(hardcodeMessages[0]);
   console.log(hardcodeMessages[1]);
   console.log(hardcodeMessages[2]);
   console.log('Adding hardcode messages to dom: ' + hardcodeMessages);
   document.getElementById('hardcode-messages').innerHTML = hardcodeMessages;
+});
+}
+
+//Parse the ArrayList comments as JSON.
+function printComments(){
+  fetch('/data')  // Sends a request to /data .
+  .then(response => response.json()) // Parses the response as JSON.
+  .then((comments) => { // Now we can reference the fields in hardcodeMessages.
+  console.log(comments);
+  console.log('Adding comments to dom: ' + comments);
+  document.getElementById('print-comments').innerHTML = comments;
 });
 }
 
