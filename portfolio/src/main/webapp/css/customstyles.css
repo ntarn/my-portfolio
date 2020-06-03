@@ -51,18 +51,18 @@ h1{
 
 /* Changes the grayscale profile picture to colored when hovered over. */
 .pf-pic {
-    width: 300px;
-    height: 400px;
-    position: relative;
-    margin: 5px;
-    float: right;
-    background: url("NatalieTarnming.jpg") no-repeat;
     background-size: contain;
+    background: url("NatalieTarnming.jpg") no-repeat;
+    float: right;
+    height: 400px;
+    margin: 5px;
+    position: relative;
+    width: 300px;
 }
 
 .pfpic:hover {
-    background: url("NatalieTarnmin.jpg") no-repeat;
     background-size: contain;
+    background: url("NatalieTarnmin.jpg") no-repeat;
 }
 
 .project-icons{
@@ -70,24 +70,23 @@ h1{
 }
 
 .project-icons #projecticonborder{
-    text-align: center;
-    height: 1.5rem;
-    width: 1.5rem;
     background: rgba(100, 161, 157, 0.1);
     border-radius: 100%;
-    /* line-height: 3rem; */
     color: rgba(255, 255, 255, 0.3);
+    height: 1.5rem;
+    text-align: center;
+    width: 1.5rem;
     
 }
 
 .project-icons a {
-  text-align: center;
-  height: 3rem;
-  width: 3rem;
   background: rgba(255, 255, 255, 0.1);
   border-radius: 100%;
-  line-height: 3rem;
   color: rgba(255, 255, 255, 0.3);
+  height: 3rem;
+  line-height: 3rem;
+  text-align: center;
+  width: 3rem;
 }
 
 .project-icons a:hover {
@@ -101,24 +100,24 @@ h1{
 /* Project Section Pictures - Resizes and changes background of images. */
 
 .webapp-img {
-  width: 90%;
-  height: 75%;
   background: rgba(255, 255, 255, 0.1);
+  height: 75%;
+  width: 90%;
 }
 
 .aicure-img {
-  width: 95%;
-  height: 20%;
   background: rgba(255, 255, 255, 0.1);
+  height: 20%;
+  width: 95%;
 }
 
 .nlp-img {
-  width: 95%;
   background: rgba(255, 255, 255, 0.1);
+  width: 95%;
 }
 
 /* The extended projects section used to be a contact section so this adds padding around extended projects. */
 #contact-margin {
-  padding-top: 4rem;
   padding-bottom: 4rem;
+  padding-top: 4rem;
 }

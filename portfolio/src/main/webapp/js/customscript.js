@@ -27,7 +27,7 @@ function addRandomGreeting() {
   greetingContainer.innerText = greeting;
 }
 
-// Adds Hello Natalie! to the page.
+// Adds "Hello Natalie!" to the page.
 async function getHelloNameUsingAsyncAwait() {
   console.log('Fetching Hello Name!');
   const response = await fetch('/data');
