@@ -36,14 +36,12 @@ import javax.servlet.http.HttpServletResponse;
 @WebServlet("/data")
 public class DataServlet extends HttpServlet {
 	
-  private int maxComments = 0;
+  private int maxCommentsObtained = 0;
 
   @Override
   public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
-    // Send the JSON as the response.
-    // String json = new Gson().toJson(comments);
-    // response.setContentType("application/json;");
-    // response.getWriter().println(json);
+    maxCommentsObtained = getMaxComments(request);
+
     Query query = new Query("Task").addSort("timestamp", SortDirection.DESCENDING);
 
     DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
@@ -56,7 +54,7 @@ public class DataServlet extends HttpServlet {
       long timestamp = (long) entity.getProperty("timestamp");
 
       comments.add(comment);
-      if(comments.size()>=maxComments){
+      if(comments.size() >= maxCommentsObtained){
         break;
       }
     }
@@ -65,29 +63,18 @@ public class DataServlet extends HttpServlet {
 
     response.setContentType("application/json;");
     response.getWriter().println(gson.toJson(comments));
+
+     // Redirect back to the HTML page.
   }
 
   @Override
   public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
     // Get the input from the form.
-    String text = getParameter(request, "text-input", "");
+    String text = request.getParameter("text-input");
     long timestamp = System.currentTimeMillis();
 
-    // Respond with the result.
-    // comments.add(text);
-    // response.setContentType("text/html;");
-    // for(int commentIndex =0; commentIndex < comments.size(); commentIndex++){
-    //   response.getWriter().println(comments.get(commentIndex));
-    // }
-
-    // Get the input from the form.
-    maxComments = getMaxComments(request);
-    if (maxComments == -1) {
-      response.setContentType("text/html");
-      response.getWriter().println("Please enter an integer between 1 and 3.");
-      return;
-    }
-
+    // // Get the input from the form. TODO: make sure that submitting max comments doesnt create a new comment too
+    // maxCommentsObtained = getMaxComments(request);
 
     // Creates data in Datastore with the text as a comment property.
     Entity taskEntity = new Entity("Task");
@@ -102,28 +89,15 @@ public class DataServlet extends HttpServlet {
     response.sendRedirect("/index.html");
   }
 
-  /**
-   * Returns the request parameter.
-   * @return the request parameter, or the default value if the parameter
-   *         was not specified by the client.
-   */
-  private String getParameter(HttpServletRequest request, String name, String defaultValue) {
-    String value = request.getParameter(name);
-    if (value == null) {
-      return defaultValue;
-    }
-    return value;
-  }
-
   /** Returns the max number of comments to display, or -1 if the choice was invalid. */
   private int getMaxComments(HttpServletRequest request) {
     // Get the input from the form.
-    String maxComments = request.getParameter("max-comments");
+    String stringMaxComments = request.getParameter("max-comments");
 
     // Convert the input to an int.
-    int maxComments;
+    int maxComments = 1;
     try {
-      maxComments = Integer.parseInt(maxComments);
+      maxComments = Integer.parseInt(stringMaxComments);
     } catch (NumberFormatException e) {
       System.err.println("Could not convert to int: " + maxComments);
       return -1;
@@ -132,7 +106,7 @@ public class DataServlet extends HttpServlet {
     // Check that the input is between 1 and 3.
     if (maxComments < 1 || maxComments > 3) {
       System.err.println("The maximum number of comments chosen is out of range: " + maxComments);
-      return -1;
+      return 1;
     }
 
     return maxComments;

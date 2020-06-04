@@ -44,28 +44,35 @@ function printComments(){
   .then((comments) => { // Now we can reference the fields in comments.
     console.log(comments);
     console.log('Adding comments to dom: ' + comments);
-    document.getElementById('print-comments').innerHTML = comments;
+    document.getElementById('comment-list').innerHTML = comments;
 });
 
 }
 
 /** Fetches tasks from the server and adds them to the DOM. */
-function loadTasks() {
-  fetch('/list-tasks').then(response => response.json()).then((tasks) => {
-    const taskListElement = document.getElementById('task-list');
-    tasks.forEach((task) => {
-      taskListElement.appendChild(createTaskElement(task));
+function loadComments() {
+   const maxComments = document.getElementById('maxComments').value;
+   fetch('/data?max-comments='+ maxComments)  // Sends a request to /data .
+  .then(response => response.json()) // Parses the response as JSON.
+  .then((comments) => { // Now we can reference the fields in comments.
+    console.log(comments);
+    const taskListElement = document.getElementById('comment-list'); // Retrieve the list of comments at the ElementById.
+    taskListElement.innerHTML = "";
+    comments.forEach((comment) => {
+      taskListElement.appendChild(createTaskElement(comment));
     })
   });
-}
+}  
 
-/** Creates an element that represents a task, including its delete button. */
+
+/** Creates an element that represents a task, including its delete button. TODO rename task to comment */
 function createTaskElement(task) {
   const taskElement = document.createElement('li');
   taskElement.className = 'task';
 
   const titleElement = document.createElement('span');
-  titleElement.innerText = task.title;
+  console.log('Adding comments to dom: ' + task);
+  titleElement.innerText = task;
 
   const deleteButtonElement = document.createElement('button');
   deleteButtonElement.innerText = 'Delete';
@@ -85,6 +92,6 @@ function createTaskElement(task) {
 function deleteTask(task) {
   const params = new URLSearchParams();
   params.append('id', task.id);
-  fetch('/delete-task', {method: 'POST', body: params});
+  fetch('/delete-data', {method: 'POST', body: params});
 }
 
