@@ -30,9 +30,6 @@ import javax.servlet.http.HttpServletResponse;
  */
 @WebServlet("/data")
 public class DataServlet extends HttpServlet {
-	ImmutableList<String> immutableList =  ImmutableList.of("blob1", "For", "blob"); 
-  //ArrayList<String> hardcodeMessages = new ArrayList<String>(Arrays.asList("Buenos Aires", "Cordoba", "La Plata"));
-	ArrayList<String> comments = new ArrayList<String>();
 
   @Override
   public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
@@ -56,12 +53,12 @@ public class DataServlet extends HttpServlet {
 
     // Redirect back to the HTML page.
     response.sendRedirect("/index.html");
-    
   }
 
   /**
+   * Returns the request parameter.
    * @return the request parameter, or the default value if the parameter
-   *         was not specified by the client
+   *         was not specified by the client.
    */
   private String getParameter(HttpServletRequest request, String name, String defaultValue) {
     String value = request.getParameter(name);

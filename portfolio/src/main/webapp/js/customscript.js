@@ -37,27 +37,13 @@ async function getHelloNameUsingAsyncAwait() {
   document.getElementById('quote-container').innerHTML = name;
 }
 
-// Parse the hardcode messages as JSON.
-function changeAListJson(){
-  fetch('/data')  // Sends a request to /data .
-  .then(response => response.json()) // Parses the response as JSON.
-  .then((testGetMethodMessages) => { // Now we can reference the fields in hardcodeMessages.
-    console.log(testGetMethodMessages[0]);
-    console.log(testGetMethodMessages[1]);
-    console.log(testGetMethodMessages[2]);
-    console.log('Adding hardcode messages to dom: ' + testGetMethodMessages);
-    document.getElementById('hardcode-messages').innerHTML = testGetMethodMessages;
-});
-}
-
 // Parse the ArrayList comments as JSON.
 function printComments(){
   fetch('/data')  // Sends a request to /data .
   .then(response => response.json()) // Parses the response as JSON.
-  .then((comments) => { // Now we can reference the fields in hardcodeMessages.
+  .then((comments) => { // Now we can reference the fields in comments.
     console.log(comments);
     console.log('Adding comments to dom: ' + comments);
     document.getElementById('print-comments').innerHTML = comments;
 });
 }
-
