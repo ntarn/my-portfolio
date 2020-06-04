@@ -20,7 +20,6 @@ import com.google.appengine.api.datastore.Entity;
 import com.google.appengine.api.datastore.PreparedQuery;
 import com.google.appengine.api.datastore.Query;
 import com.google.appengine.api.datastore.Query.SortDirection;
-import com.google.common.collect.ImmutableList; 
 import com.google.gson.Gson;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -72,9 +71,6 @@ public class DataServlet extends HttpServlet {
     // Get the input from the form.
     String text = request.getParameter("text-input");
     long timestamp = System.currentTimeMillis();
-
-    // // Get the input from the form. TODO: make sure that submitting max comments doesnt create a new comment too
-    // maxCommentsObtained = getMaxComments(request);
 
     // Creates data in Datastore with the text as a comment property.
     Entity taskEntity = new Entity("Task");

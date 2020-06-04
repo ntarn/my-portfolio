@@ -94,4 +94,3 @@ function deleteTask(task) {
   params.append('id', task.id);
   fetch('/delete-data', {method: 'POST', body: params});
 }
-

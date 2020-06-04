@@ -1,29 +1,29 @@
 .pf-pic {
-    background: url("NatalieTarnming.jpg") no-repeat; /* Changes the grayscale profile picture to colored when hovered over.*/
-    float: right;
-    height: 400px;
-    margin: 5px;
-    position: relative;
-    width: 300px;
-    background-size: contain;
+  background: url("NatalieTarnming.jpg") no-repeat; /* Changes the grayscale profile picture to colored when hovered over.*/
+  float: right;
+  height: 400px;
+  margin: 5px;
+  position: relative;
+  width: 300px;
+  background-size: contain;
 }
 
 .pf-pic:hover {
-    background: url("NatalieTarnmin.jpg") no-repeat;
-    background-size: contain;
+  background: url("NatalieTarnmin.jpg") no-repeat;
+  background-size: contain;
 }
 
 .project-icons{
-    margin-top: 0.5rem;
+  margin-top: 0.5rem;
 }
 
 .project-icons #projecticonborder{
-    background: rgba(100, 161, 157, 0.1);
-    border-radius: 100%;
-    color: rgba(255, 255, 255, 0.3);
-    height: 1.5rem;
-    text-align: center;
-    width: 1.5rem;
+  background: rgba(100, 161, 157, 0.1);
+  border-radius: 100%;
+  color: rgba(255, 255, 255, 0.3);
+  height: 1.5rem;
+  text-align: center;
+  width: 1.5rem;
 }
 
 .project-icons a {
