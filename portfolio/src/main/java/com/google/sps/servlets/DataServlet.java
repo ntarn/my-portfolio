@@ -36,7 +36,6 @@ import javax.servlet.http.HttpServletResponse;
 @WebServlet("/data")
 public class DataServlet extends HttpServlet {
 	ImmutableList<String> immutableList =  ImmutableList.of("blob1", "For", "blob"); 
-  //ArrayList<String> hardcodeMessages = new ArrayList<String>(Arrays.asList("Buenos Aires", "Cordoba", "La Plata"));
 	ArrayList<String> comments = new ArrayList<String>();
 
   @Override
@@ -92,8 +91,9 @@ public class DataServlet extends HttpServlet {
   }
 
   /**
+   * Returns the request parameter.
    * @return the request parameter, or the default value if the parameter
-   *         was not specified by the client
+   *         was not specified by the client.
    */
   private String getParameter(HttpServletRequest request, String name, String defaultValue) {
     String value = request.getParameter(name);
@@ -101,5 +101,28 @@ public class DataServlet extends HttpServlet {
       return defaultValue;
     }
     return value;
+  }
+
+  /** Returns the choice entered by the player, or -1 if the choice was invalid. */
+  private int getPlayerChoice(HttpServletRequest request) {
+    // Get the input from the form.
+    String playerChoiceString = request.getParameter("player-choice");
+
+    // Convert the input to an int.
+    int playerChoice;
+    try {
+      playerChoice = Integer.parseInt(playerChoiceString);
+    } catch (NumberFormatException e) {
+      System.err.println("Could not convert to int: " + playerChoiceString);
+      return -1;
+    }
+
+    // Check that the input is between 1 and 3.
+    if (playerChoice < 1 || playerChoice > 3) {
+      System.err.println("Player choice is out of range: " + playerChoiceString);
+      return -1;
+    }
+
+    return playerChoice;
   }
 }
