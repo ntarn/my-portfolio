@@ -35,6 +35,8 @@ import javax.servlet.http.HttpServletResponse;
  */
 @WebServlet("/data")
 public class DataServlet extends HttpServlet {
+	
+  private int maxComments = 0;
 
   @Override
   public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
@@ -54,6 +56,9 @@ public class DataServlet extends HttpServlet {
       long timestamp = (long) entity.getProperty("timestamp");
 
       comments.add(comment);
+      if(comments.size()>=maxComments){
+        break;
+      }
     }
 
     Gson gson = new Gson();
@@ -74,6 +79,15 @@ public class DataServlet extends HttpServlet {
     // for(int commentIndex =0; commentIndex < comments.size(); commentIndex++){
     //   response.getWriter().println(comments.get(commentIndex));
     // }
+
+    // Get the input from the form.
+    maxComments = getMaxComments(request);
+    if (maxComments == -1) {
+      response.setContentType("text/html");
+      response.getWriter().println("Please enter an integer between 1 and 3.");
+      return;
+    }
+
 
     // Creates data in Datastore with the text as a comment property.
     Entity taskEntity = new Entity("Task");
@@ -101,26 +115,26 @@ public class DataServlet extends HttpServlet {
     return value;
   }
 
-  /** Returns the choice entered by the player, or -1 if the choice was invalid. */
-  private int getPlayerChoice(HttpServletRequest request) {
+  /** Returns the max number of comments to display, or -1 if the choice was invalid. */
+  private int getMaxComments(HttpServletRequest request) {
     // Get the input from the form.
-    String playerChoiceString = request.getParameter("player-choice");
+    String maxComments = request.getParameter("max-comments");
 
     // Convert the input to an int.
-    int playerChoice;
+    int maxComments;
     try {
-      playerChoice = Integer.parseInt(playerChoiceString);
+      maxComments = Integer.parseInt(maxComments);
     } catch (NumberFormatException e) {
-      System.err.println("Could not convert to int: " + playerChoiceString);
+      System.err.println("Could not convert to int: " + maxComments);
       return -1;
     }
 
     // Check that the input is between 1 and 3.
-    if (playerChoice < 1 || playerChoice > 3) {
-      System.err.println("Player choice is out of range: " + playerChoiceString);
+    if (maxComments < 1 || maxComments > 3) {
+      System.err.println("The maximum number of comments chosen is out of range: " + maxComments);
       return -1;
     }
 
-    return playerChoice;
+    return maxComments;
   }
 }

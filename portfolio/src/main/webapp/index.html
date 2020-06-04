@@ -193,8 +193,12 @@
                     <div class="col-md-10 col-lg-8 mx-auto text-center">
                         <i class="far fa-paper-plane fa-2x mb-2 text-white"></i>
                         <h2 class="text-white mb-5">Get In Touch</h2>
-                        <form action="/subtraction-game" method="POST">
-                        <form action="/subtraction-game" method="POST">
+                        <form action="/data" method="POST">
+                            <p>Choose max number of comments:</p>
+                            <input type="number" name="max-comments" min="1" max="3" value="1">
+                            <br/><br/>
+                            <input type="submit" />
+                        </form>
                         <form action="/data" class="form-inline d-flex" method="POST"><input class="form-control flex-fill mr-0 mr-sm-2 mb-3 mb-sm-0" id="inputEmail" name="text-input" type="" placeholder="Enter email address and comment..." /><button class="btn btn-primary mx-auto" type="submit">Comment</button></form>
                         <div id="print-comments"></div>
                     </div>
