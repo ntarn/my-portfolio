@@ -47,7 +47,7 @@ public class DataServlet extends HttpServlet {
     // Respond with the result.
     comments.add(text);
     response.setContentType("text/html;");
-    for(int commentIndex =0; commentIndex < comments.size(); commentIndex++){
+    for (int commentIndex = 0; commentIndex < comments.size(); commentIndex++){
       response.getWriter().println(comments.get(commentIndex));
     }
 

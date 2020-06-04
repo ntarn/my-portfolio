@@ -45,5 +45,5 @@ function printComments(){
     console.log(comments);
     console.log('Adding comments to dom: ' + comments);
     document.getElementById('print-comments').innerHTML = comments;
-});
+  });
 }
