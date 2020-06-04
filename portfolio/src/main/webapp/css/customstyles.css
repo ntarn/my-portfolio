@@ -1,57 +1,5 @@
-/* body{
- color: #FF0000; /*font color
- background-color: #EEEEEE
-
-}
-#content {
-  margin-left: auto;
-  margin-right: auto;
-  width: 650px;
-}
-
-#greeting-container {
-  margin-top: 20px;
-}
-
-h1{
- color: #000000;
- font-family: "Helvetica", sans-serif;
-}
-
-.container {
-   width: 200px;
-   height: 120px;
-}
-
-/* resize images 
-.container img {
-   width: 100%;
-   height: auto;
-} */
-
-/* .card {
-    width: 25%;
-    height: auto;
-    position: relative;
-    margin: 5px;
-    float: right;
-}
-.card .img-top {
-    display: none;
-    position: absolute;
-    top: 0;
-    left: 0;
-    z-index: 99;
-}
-.card:hover .img-top {
-    width: 25%;
-    height: auto;
-    display: inline;
-} */
-
-/* Changes the grayscale profile picture to colored when hovered over.*/
 .pf-pic {
-    background: url("NatalieTarnming.jpg") no-repeat;
+    background: url("NatalieTarnming.jpg") no-repeat; /* Changes the grayscale profile picture to colored when hovered over.*/
     float: right;
     height: 400px;
     margin: 5px;

@@ -35,8 +35,6 @@ import javax.servlet.http.HttpServletResponse;
  */
 @WebServlet("/data")
 public class DataServlet extends HttpServlet {
-	ImmutableList<String> immutableList =  ImmutableList.of("blob1", "For", "blob"); 
-	ArrayList<String> comments = new ArrayList<String>();
 
   @Override
   public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
