@@ -12,7 +12,9 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-/** Fetches comments from the server and adds them to the DOM. */
+/** Fetches comments from the server and adds them to the DOM. 
+ * TODO(ntarn): Fix how many comments are displayed when submitting a comment.
+ */
 function loadComments() {
    const maxComments = document.getElementById('maxComments').value;
    fetch('/data?max-comments='+ maxComments)  // Sends a request to /the URL.
@@ -22,14 +24,14 @@ function loadComments() {
     const commentListElement = document.getElementById('comment-list'); // Retrieve the list of comments at the ElementById.
     commentListElement.innerHTML = "";
     comments.forEach((comment) => {
-      commentListElement.appendChild(createTaskElement(comment));
+      commentListElement.appendChild(createCommentElement(comment));
     })
   });
 }  
 
 
 /** Creates an element that represents a comment, including its delete button. */
-function createTaskElement(comment) {
+function createCommentElement(comment) {
   const commentElement = document.createElement('li');
   commentElement.className = 'comment';
 
@@ -40,7 +42,7 @@ function createTaskElement(comment) {
   const deleteButtonElement = document.createElement('button');
   deleteButtonElement.innerText = 'Delete';
   deleteButtonElement.addEventListener('click', () => {
-    deleteTask(comment);
+    deleteComment(comment);
 
     // Remove the comment from the DOM.
     commentElement.remove();
@@ -52,7 +54,7 @@ function createTaskElement(comment) {
 }
 
 /** Tells the server to delete the comment. */
-function deleteTask(comment) {
+function deleteComment(comment) {
   const params = new URLSearchParams();
   params.append('id', comment.id);
   console.log('ID of comments to be removed' + params);
