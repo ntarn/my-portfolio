@@ -39,13 +39,16 @@ public class DataServlet extends HttpServlet {
 
   @Override
   public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
+    // Get the max comments data from the server.
     int maxCommentsObtained = getMaxComments(request);
 
+    // Prepares a Query instance with the Comment kind of entity to load.
     Query query = new Query("Comment").addSort("timestamp", SortDirection.DESCENDING);
 
     DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
     PreparedQuery results = datastore.prepare(query);
 
+    // Get the max amount of comments with id, text, and timestamp.
     List<Comment> comments = new ArrayList<>();
     for (Entity entity : results.asIterable()) {
       long id = entity.getKey().getId();
@@ -67,7 +70,7 @@ public class DataServlet extends HttpServlet {
 
   @Override
   public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
-    // Get the input from the form.
+    // Get the comment text input from the form.
     String text = request.getParameter("text-input");
     long timestamp = System.currentTimeMillis();
 
@@ -86,7 +89,7 @@ public class DataServlet extends HttpServlet {
 
   /** Returns the max number of comments to display, or -1 if the choice was invalid. */
   private int getMaxComments(HttpServletRequest request) {
-    // Get the input from the form.
+    // Get the number of comments to display from the form.
     String stringMaxComments = request.getParameter("max-comments");
 
     // Convert the input to an int.

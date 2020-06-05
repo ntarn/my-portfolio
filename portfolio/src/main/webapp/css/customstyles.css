@@ -69,6 +69,8 @@
   padding-top: 4rem;
 }
 
+/* Contact Section Comments - Changes styling of each comment. */
+
 #comment-list {
   list-style-type: none;
 }

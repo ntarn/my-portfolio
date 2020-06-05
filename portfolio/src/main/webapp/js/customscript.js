@@ -12,86 +12,49 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-/**
- * Adds a random greeting to the page.
- */
-function addRandomGreeting() {
-  const greetings =
-      ['I have built an app that tracks the carbon footprint of companies', 'worked on detecting sarcasm in Twitter and Reddit posts', 'visualized dominance hierarchies in zebra finches'];
-
-  // Pick a random greeting.
-  const greeting = greetings[Math.floor(Math.random() * greetings.length)];
-
-  // Add it to the page.
-  const greetingContainer = document.getElementById('greeting-container');
-  greetingContainer.innerText = greeting;
-}
-
-// Adds "Hello Natalie!" to the page.
-async function getHelloNameUsingAsyncAwait() {
-  console.log('Fetching Hello Name!');
-  const response = await fetch('/data');
-  console.log('Handling the response.');
-  const name = await response.text();
-  console.log('Adding quote to dom: ' + name);
-  document.getElementById('quote-container').innerHTML = name;
-}
-
-// Parse the ArrayList comments as JSON.
-function printComments(){
-  fetch('/data')  // Sends a request to /data .
-  .then(response => response.json()) // Parses the response as JSON.
-  .then((comments) => { // Now we can reference the fields in comments.
-    console.log(comments);
-    console.log('Adding comments to dom: ' + comments);
-    document.getElementById('comment-list').innerHTML = comments;
-});
-
-}
-
-/** Fetches tasks from the server and adds them to the DOM. */
+/** Fetches comments from the server and adds them to the DOM. */
 function loadComments() {
    const maxComments = document.getElementById('maxComments').value;
-   fetch('/data?max-comments='+ maxComments)  // Sends a request to /data .
+   fetch('/data?max-comments='+ maxComments)  // Sends a request to /the URL.
   .then(response => response.json()) // Parses the response as JSON.
   .then((comments) => { // Now we can reference the fields in comments.
     console.log(comments);
-    const taskListElement = document.getElementById('comment-list'); // Retrieve the list of comments at the ElementById.
-    taskListElement.innerHTML = "";
+    const commentListElement = document.getElementById('comment-list'); // Retrieve the list of comments at the ElementById.
+    commentListElement.innerHTML = "";
     comments.forEach((comment) => {
-      taskListElement.appendChild(createTaskElement(comment));
+      commentListElement.appendChild(createTaskElement(comment));
     })
   });
 }  
 
 
-/** Creates an element that represents a task, including its delete button. TODO rename task to comment */
-function createTaskElement(task) {
-  const taskElement = document.createElement('li');
-  taskElement.className = 'comment';
+/** Creates an element that represents a comment, including its delete button. */
+function createTaskElement(comment) {
+  const commentElement = document.createElement('li');
+  commentElement.className = 'comment';
 
   const titleElement = document.createElement('span');
-  console.log('Adding comments to dom: ' + task.text);
-  titleElement.innerText = task.text;
+  console.log('Adding comments to dom: ' + comment.text);
+  titleElement.innerText = comment.text;
 
   const deleteButtonElement = document.createElement('button');
   deleteButtonElement.innerText = 'Delete';
   deleteButtonElement.addEventListener('click', () => {
-    deleteTask(task);
+    deleteTask(comment);
 
-    // Remove the task from the DOM.
-    taskElement.remove();
+    // Remove the comment from the DOM.
+    commentElement.remove();
   });
 
-  taskElement.appendChild(titleElement);
-  taskElement.appendChild(deleteButtonElement);
-  return taskElement;
+  commentElement.appendChild(titleElement);
+  commentElement.appendChild(deleteButtonElement);
+  return commentElement;
 }
 
-/** Tells the server to delete the task. */
-function deleteTask(task) {
+/** Tells the server to delete the comment. */
+function deleteTask(comment) {
   const params = new URLSearchParams();
-  params.append('id', task.id);
+  params.append('id', comment.id);
   console.log('ID of comments to be removed' + params);
-  fetch('/delete-data?' + params.toString(), {method: 'POST'});//, body: params});
+  fetch('/delete-data?' + params.toString(), {method: 'POST'});
 }
