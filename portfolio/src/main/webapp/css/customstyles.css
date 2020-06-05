@@ -1,82 +1,39 @@
-/* body{
- color: #FF0000; /*font color
- background-color: #EEEEEE
-
-}
-#content {
-  margin-left: auto;
-  margin-right: auto;
-  width: 650px;
-}
-
-#greeting-container {
-  margin-top: 20px;
+.pf-pic {
+  background: url("NatalieTarnming.jpg") no-repeat; /* Changes the grayscale profile picture to colored when hovered over.*/
+  float: right;
+  height: 400px;
+  margin: 5px;
+  position: relative;
+  width: 300px;
+  background-size: contain;
 }
 
-h1{
- color: #000000;
- font-family: "Helvetica", sans-serif;
-}
-
-.container {
-   width: 200px;
-   height: 120px;
-}
-
-/* resize images 
-.container img {
-   width: 100%;
-   height: auto;
-} */
-
-/* .card {
-    width: 25%;
-    height: auto;
-    position: relative;
-    margin: 5px;
-    float: right;
-}
-.card .img-top {
-    display: none;
-    position: absolute;
-    top: 0;
-    left: 0;
-    z-index: 99;
-}
-.card:hover .img-top {
-    width: 25%;
-    height: auto;
-    display: inline;
-} */
-
-/* changing grayscale profile picture to colored when hovered over */
-.pfpic {
-    width: 300px;
-    height: 400px;
-    position: relative;
-    margin: 5px;
-    float: right;
-    background: url("NatalieTarnming.jpg") no-repeat;
-    background-size: contain;
-}
-
-.pfpic:hover {
-    background: url("NatalieTarnmin.jpg") no-repeat;
-    background-size: contain;
+.pf-pic:hover {
+  background: url("NatalieTarnmin.jpg") no-repeat;
+  background-size: contain;
 }
 
 .project-icons{
-    margin-top: 0.5rem;
+  margin-top: 0.5rem;
+}
+
+.project-icons #projecticonborder{
+  background: rgba(100, 161, 157, 0.1);
+  border-radius: 100%;
+  color: rgba(255, 255, 255, 0.3);
+  height: 1.5rem;
+  text-align: center;
+  width: 1.5rem;
 }
 
 .project-icons a {
-  text-align: center;
-  height: 1.5rem;
-  width: 1.5rem;
-  background: rgba(100, 161, 157, 1);
+  background: rgba(255, 255, 255, 0.1);
   border-radius: 100%;
-  line-height: 3rem;
   color: rgba(255, 255, 255, 0.3);
+  height: 3rem;
+  line-height: 3rem;
+  text-align: center;
+  width: 3rem;
 }
 
 .project-icons a:hover {
@@ -85,4 +42,29 @@ h1{
 
 .project-icons a:active {
   color: rgba(255, 255, 255, 1);
+}
+
+/* Project Section Pictures - Resizes and changes background of images. */
+
+.webapp-img {
+  background: rgba(255, 255, 255, 0.1);
+  height: 75%;
+  width: 90%;
+}
+
+.aicure-img {
+  background: rgba(255, 255, 255, 0.1);
+  height: 20%;
+  width: 95%;
+}
+
+.nlp-img {
+  background: rgba(255, 255, 255, 0.1);
+  width: 95%;
+}
+
+/* The extended projects section used to be a contact section so this adds padding around extended projects. */
+#contact-margin {
+  padding-bottom: 4rem;
+  padding-top: 4rem;
 }

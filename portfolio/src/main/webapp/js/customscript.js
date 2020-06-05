@@ -26,3 +26,24 @@ function addRandomGreeting() {
   const greetingContainer = document.getElementById('greeting-container');
   greetingContainer.innerText = greeting;
 }
+
+// Adds "Hello Natalie!" to the page.
+async function getHelloNameUsingAsyncAwait() {
+  console.log('Fetching Hello Name!');
+  const response = await fetch('/data');
+  console.log('Handling the response.');
+  const name = await response.text();
+  console.log('Adding quote to dom: ' + name);
+  document.getElementById('quote-container').innerHTML = name;
+}
+
+// Parse the ArrayList comments as JSON.
+function printComments(){
+  fetch('/data')  // Sends a request to /data .
+  .then(response => response.json()) // Parses the response as JSON.
+  .then((comments) => { // Now we can reference the fields in comments.
+    console.log(comments);
+    console.log('Adding comments to dom: ' + comments);
+    document.getElementById('print-comments').innerHTML = comments;
+  });
+}
