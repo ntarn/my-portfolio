@@ -68,11 +68,11 @@ function loadComments() {
 /** Creates an element that represents a task, including its delete button. TODO rename task to comment */
 function createTaskElement(task) {
   const taskElement = document.createElement('li');
-  taskElement.className = 'task';
+  taskElement.className = 'comment';
 
   const titleElement = document.createElement('span');
-  console.log('Adding comments to dom: ' + task);
-  titleElement.innerText = task;
+  console.log('Adding comments to dom: ' + task.text);
+  titleElement.innerText = task.text;
 
   const deleteButtonElement = document.createElement('button');
   deleteButtonElement.innerText = 'Delete';
@@ -92,5 +92,6 @@ function createTaskElement(task) {
 function deleteTask(task) {
   const params = new URLSearchParams();
   params.append('id', task.id);
-  fetch('/delete-data', {method: 'POST', body: params});
+  console.log('ID of comments to be removed' + params);
+  fetch('/delete-data?' + params.toString(), {method: 'POST'});//, body: params});
 }

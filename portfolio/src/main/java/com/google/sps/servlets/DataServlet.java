@@ -14,6 +14,7 @@
 
 package com.google.sps.servlets;
 
+import com.google.sps.data.Comment;
 import com.google.appengine.api.datastore.DatastoreService;
 import com.google.appengine.api.datastore.DatastoreServiceFactory;
 import com.google.appengine.api.datastore.Entity;
@@ -23,6 +24,7 @@ import com.google.appengine.api.datastore.Query.SortDirection;
 import com.google.gson.Gson;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.List;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -34,24 +36,23 @@ import javax.servlet.http.HttpServletResponse;
  */
 @WebServlet("/data")
 public class DataServlet extends HttpServlet {
-	
-  private int maxCommentsObtained = 0;
 
   @Override
   public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
-    maxCommentsObtained = getMaxComments(request);
+    int maxCommentsObtained = getMaxComments(request);
 
-    Query query = new Query("Task").addSort("timestamp", SortDirection.DESCENDING);
+    Query query = new Query("Comment").addSort("timestamp", SortDirection.DESCENDING);
 
     DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
     PreparedQuery results = datastore.prepare(query);
 
-    ArrayList<String> comments = new ArrayList<String>();
+    List<Comment> comments = new ArrayList<>();
     for (Entity entity : results.asIterable()) {
       long id = entity.getKey().getId();
-      String comment = (String) entity.getProperty("comment");
+      String text = (String) entity.getProperty("text");
       long timestamp = (long) entity.getProperty("timestamp");
 
+      Comment comment = new Comment(id, text, timestamp);
       comments.add(comment);
       if(comments.size() >= maxCommentsObtained){
         break;
@@ -62,8 +63,6 @@ public class DataServlet extends HttpServlet {
 
     response.setContentType("application/json;");
     response.getWriter().println(gson.toJson(comments));
-
-     // Redirect back to the HTML page.
   }
 
   @Override
@@ -73,8 +72,8 @@ public class DataServlet extends HttpServlet {
     long timestamp = System.currentTimeMillis();
 
     // Creates data in Datastore with the text as a comment property.
-    Entity taskEntity = new Entity("Task");
-    taskEntity.setProperty("comment", text);
+    Entity taskEntity = new Entity("Comment");
+    taskEntity.setProperty("text", text);
     taskEntity.setProperty("timestamp", timestamp);
 
     // Put newly created Entity.
