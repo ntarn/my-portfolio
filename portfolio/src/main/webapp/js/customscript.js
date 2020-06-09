@@ -12,7 +12,8 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-/** Fetches comments from the server and adds them to the DOM. 
+/**
+ * Fetches comments from the server and adds them to the DOM. 
  * TODO(ntarn): Fix how many comments are displayed when submitting a comment.
  */
 function loadComments() {
