@@ -39,16 +39,16 @@ public class DataServlet extends HttpServlet {
 
   @Override
   public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
-    // Get the max comments data from the server.
+    // Get the maximum amount of comments to display data from the server.
     int maxCommentsObtained = getMaxComments(request);
 
-    // Prepares a Query instance with the Comment kind of entity to load.
+    // Prepare a Query instance with the Comment kind of entity to load.
     Query query = new Query("Comment").addSort("timestamp", SortDirection.DESCENDING);
 
     DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
     PreparedQuery results = datastore.prepare(query);
 
-    // Get the max amount of comments with id, text, and timestamp.
+    // Get the maximum amount of comments that can be displayed on a page.
     List<Comment> comments = new ArrayList<>();
     for (Entity entity : results.asIterable()) {
       long id = entity.getKey().getId();
@@ -74,26 +74,26 @@ public class DataServlet extends HttpServlet {
     String text = request.getParameter("text-input");
     long timestamp = System.currentTimeMillis();
 
-    // Creates data in Datastore with the text as a comment property.
-    Entity taskEntity = new Entity("Comment");
-    taskEntity.setProperty("text", text);
-    taskEntity.setProperty("timestamp", timestamp);
+    // Create an Entity for the comment that can be entered into the DataStore.
+    Entity commentEntity = new Entity("Comment");
+    commentEntity.setProperty("text", text);
+    commentEntity.setProperty("timestamp", timestamp);
 
     // Put newly created Entity.
     DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
-    datastore.put(taskEntity);
+    datastore.put(commentEntity);
 
     // Redirect back to the HTML page.
     response.sendRedirect("/index.html");
   }
 
-  /** Returns the max number of comments to display, or -1 if the choice was invalid. */
+  /** Returns the maximum number of comments to display, or -1 if the choice was invalid. */
   private int getMaxComments(HttpServletRequest request) {
-    // Get the number of comments to display from the form.
+    // Get the number of comments to display from the maximum comments selection form.
     String stringMaxComments = request.getParameter("max-comments");
 
     // Convert the input to an int.
-    int maxComments = 1;
+    int maxComments = -1;
     try {
       maxComments = Integer.parseInt(stringMaxComments);
     } catch (NumberFormatException e) {
@@ -101,10 +101,10 @@ public class DataServlet extends HttpServlet {
       return -1;
     }
 
-    // Check that the input is between 1 and 3.
+    // We only allow 1-3 comments to be displayed on the screen.
     if (maxComments < 1 || maxComments > 3) {
-      System.err.println("The maximum number of comments chosen is out of range: " + maxComments);
-      return 1;
+      System.err.println("Error: Maximum number of comments must be 1-3. Value entered: " + maxComments);
+      return -1;
     }
 
     return maxComments;
