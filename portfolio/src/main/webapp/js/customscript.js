@@ -12,21 +12,22 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-/** Fetches comments from the server and adds them to the DOM. 
+/**
+ * Fetches comments from the server and adds them to the DOM. 
  * TODO(ntarn): Fix how many comments are displayed when submitting a comment.
  */
 function loadComments() {
    const maxComments = document.getElementById('maxComments').value;
    fetch('/data?max-comments='+ maxComments)  // Sends a request to /the URL.
-  .then(response => response.json()) // Parses the response as JSON.
-  .then((comments) => { // Now we can reference the fields in comments.
-    console.log(comments);
-    const commentListElement = document.getElementById('comment-list'); // Retrieve the list of comments at the ElementById.
-    commentListElement.innerHTML = "";
-    comments.forEach((comment) => {
-      commentListElement.appendChild(createCommentElement(comment));
-    })
-  });
+    .then(response => response.json()) // Parses the response as JSON.
+    .then((comments) => { // Now we can reference the fields in comments.
+      console.log(comments);
+      const commentListElement = document.getElementById('comment-list'); // Retrieve the list of comments at the ElementById.
+      commentListElement.innerHTML = "";
+      comments.forEach((comment) => {
+        commentListElement.appendChild(createCommentElement(comment));
+      })
+    });
 }  
 
 
