@@ -31,6 +31,7 @@ import com.google.appengine.api.images.ServingUrlOptions;
 import com.google.gson.Gson;
 import com.google.sps.data.Comment;
 import java.io.IOException;
+import java.io.IOException;
 import java.io.PrintWriter;
 import java.net.MalformedURLException;
 import java.net.URL;
@@ -71,17 +72,17 @@ public class FormHandlerServlet extends HttpServlet {
     datastore.put(commentEntity);
 
     // Redirect back to the HTML page.
-    // response.sendRedirect("/comments.html");
+    response.sendRedirect("/comments.html");
 
     // Output some HTML that shows the data the user entered.
     // A real codebase would probably store these in Datastore.
-    PrintWriter out = response.getWriter();
-    out.println("<p>Here's the image you uploaded:</p>");
-    out.println("<a href=\"" + imageUrl + "\">");
-    out.println("<img src=\"" + imageUrl + "\" />");
-    out.println("</a>");
-    out.println("<p>Here's the text you entered:</p>");
-    out.println(text);
+    // PrintWriter out = response.getWriter();
+    // out.println("<p>Here's the image you uploaded:</p>");
+    // out.println("<a href=\"" + imageUrl + "\">");
+    // out.println("<img src=\"" + imageUrl + "\" />");
+    // out.println("</a>");
+    // out.println("<p>Here's the text you entered:</p>");
+    // out.println(text);
   }
 
   /** Returns a URL that points to the uploaded file, or null if the user didn't upload a file. */

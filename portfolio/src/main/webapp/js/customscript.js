@@ -40,6 +40,10 @@ function createCommentElement(comment) {
   console.log('Adding comments to dom: ' + comment.text);
   titleElement.innerText = comment.text;
 
+  const imageUrlElement = document.createElement('img');
+  console.log('Adding images to dom: ' + comment.imageUrl);
+  imageUrlElement.src = comment.imageUrl; 
+
   const deleteButtonElement = document.createElement('button');
   deleteButtonElement.innerText = 'Delete';
   deleteButtonElement.addEventListener('click', () => {
@@ -50,6 +54,7 @@ function createCommentElement(comment) {
   });
 
   commentElement.appendChild(titleElement);
+  commentElement.appendChild(imageUrlElement);
   commentElement.appendChild(deleteButtonElement);
   return commentElement;
 }
@@ -70,6 +75,6 @@ function fetchBlobstoreUrlAndShowForm() {
       .then((imageUploadUrl) => {
         const messageForm = document.getElementById('my-form');
         messageForm.action = imageUploadUrl;
-        messageForm.classList.remove('hidden');
+        // messageForm.classList.remove('hidden');
       });
 }
