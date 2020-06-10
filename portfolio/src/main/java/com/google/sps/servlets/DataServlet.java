@@ -37,10 +37,19 @@ import javax.servlet.http.HttpServletResponse;
 @WebServlet("/data")
 public class DataServlet extends HttpServlet {
 
+  private int previousMax = 0;
+
   @Override
   public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
     // Get the maximum amount of comments to display data from the server.
     int maxCommentsObtained = getMaxComments(request);
+    if (previousMax == 0 && maxCommentsObtained != -1){
+      previousMax = maxCommentsObtained;
+    }
+    else if (maxCommentsObtained == -1){
+      maxCommentsObtained = previousMax;
+      System.err.println("previous max: " + maxCommentsObtained);
+    }
 
     // Prepare a Query instance with the Comment kind of entity to load.
     Query query = new Query("Comment").addSort("timestamp", SortDirection.DESCENDING);
@@ -55,7 +64,7 @@ public class DataServlet extends HttpServlet {
       String text = (String) entity.getProperty("text");
       long timestamp = (long) entity.getProperty("timestamp");
 
-      Comment comment = new Comment(id, text, timestamp);
+      Comment comment = new Comment(id, text, timestamp, "");
       comments.add(comment);
       if(comments.size() >= maxCommentsObtained){
         break;
@@ -84,7 +93,7 @@ public class DataServlet extends HttpServlet {
     datastore.put(commentEntity);
 
     // Redirect back to the HTML page.
-    response.sendRedirect("/index.html");
+    response.sendRedirect("/comments.html");
   }
 
   /** Returns the maximum number of comments to display, or -1 if the choice was invalid. */
@@ -98,12 +107,6 @@ public class DataServlet extends HttpServlet {
       maxComments = Integer.parseInt(stringMaxComments);
     } catch (NumberFormatException e) {
       System.err.println("Could not convert to int: " + maxComments);
-      return -1;
-    }
-
-    // We only allow 1-3 comments to be displayed on the screen.
-    if (maxComments < 1 || maxComments > 3) {
-      System.err.println("Error: Maximum number of comments must be 1-3. Value entered: " + maxComments);
       return -1;
     }
 
