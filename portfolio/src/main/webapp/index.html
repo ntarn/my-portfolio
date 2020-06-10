@@ -17,7 +17,7 @@
         <link href="css/customstyles.css" rel="stylesheet" />
         <link href="css/styles.css" rel="stylesheet" />
     </head>
-    <body id="page-top" onload="printComments()">
+    <body id="page-top" onload="loadComments()">
         <!-- Navigation-->
         <nav class="navbar navbar-expand-lg navbar-light fixed-top" id="mainNav">
             <div class="container">
@@ -43,7 +43,7 @@
                 </div>
             </div>
         </header>
-        <!-- TODO(ntarn):Add bullet point of technologies -->
+        <!-- TODO(ntarn): Add bullet point of technologies. -->
         <!-- About-->
         <section class="about-section text-left" id="about">
             <div class="container">
@@ -69,8 +69,7 @@
                     <div class="col-xl-8 col-lg-7">
                         <div class="webapp-img">
                             <img class="img-fluid mb-3 mb-lg-0" src="assets/img/webapps.svg" alt="" />
-                        </div>
-                        
+                        </div> 
                     </div>
                     <div class="col-xl-4 col-lg-5">
                         <div class="featured-text text-center text-lg-left">
@@ -169,37 +168,33 @@
                 </div>
             </div>
         </section>
-        <!-- Tutorial Section-->
-        <section class="bg-black" id="contact">
-            <div id="container">
-                <h1>Testing</h1>
-                <p>Click here to see a Hello Natalie:</p>
-                <button onclick="getHelloNameUsingAsyncAwait()">Fetch a Hello Name!</button>
-                <div id="quote-container"></div>
-                <p>Click here to see a parsed JSON string:</p>
-                <button onclick="changeAListJson()">Fetch a JSON string!</button>
-                <div id="hardcode-messages"></div>
-            </div>
-        </section>
-        <section class="contact-section bg-black" id="">
-            <div class="container">        
-                <div class="social d-flex justify-content-center">
-                    <a class="mx-2" href="https://www.linkedin.com/in/natalie-tarn"><i class="fab fa-linkedin-in"></i><a class="mx-2" href="mailto:tarn.natalie@gmail.com"><i class="fas fa-envelope"></i></a><a class="mx-2" href="https://github.com/ntarn"><i class="fab fa-github"></i></a>
-                </div>
-            </div>
-        </section>
-        <section class="signup-section" id="signup">
+        <!-- Contact Section -->
+        <section class="signup-section" id="contact">
             <div class="container">
                 <div class="row">
                     <div class="col-md-10 col-lg-8 mx-auto text-center">
                         <i class="far fa-paper-plane fa-2x mb-2 text-white"></i>
                         <h2 class="text-white mb-5">Get In Touch</h2>
-                        <form action="/data" class="form-inline d-flex" method="POST"><input class="form-control flex-fill mr-0 mr-sm-2 mb-3 mb-sm-0" id="inputEmail" name="text-input" type="" placeholder="Enter email address and comment..." /><button class="btn btn-primary mx-auto" type="submit">Comment</button></form>
-                        <div id="print-comments"></div>
+                        <p>Choose max number of comments:</p>
+                        <input type="number" id="max-comments" name="max-comments" min="1" max="3" value="">
+                        <button class="btn btn-primary mx-auto" type="submit" onclick="loadComments()">Submit</button>
+                        <form action="/data" class="form-inline d-flex" method="POST">
+                            <input class="form-control flex-fill mr-0 mr-sm-2 mb-3 mb-sm-0" id="inputEmail" name="text-input" type="" placeholder="Enter email address and comment..." />
+                            <button class="btn btn-primary mx-auto" type="submit">Comment</button>
+                        </form>
+                        <ul id="comment-list"></ul>
                     </div>
                 </div>
             </div>
         </section>
+        <!-- TODO(ntarn): Fix padding on contact icons. -->
+        <section class="contact-section bg-black" id="">
+          <div class="container">        
+            <div class="social d-flex justify-content-center">
+              <a class="mx-2" href="https://www.linkedin.com/in/natalie-tarn"><i class="fab fa-linkedin-in"></i><a class="mx-2" href="mailto:tarn.natalie@gmail.com"><i class="fas fa-envelope"></i></a><a class="mx-2" href="https://github.com/ntarn"><i class="fab fa-github"></i></a>
+            </div>
+          </div>
+      </section>
         <!-- Footer-->
         <footer class="footer bg-black small text-center text-white-50"><div class="container">Copyright © Natalie Tarn 2020</div></footer>
         <!-- Bootstrap core JS-->

@@ -14,10 +14,17 @@
 
 package com.google.sps.servlets;
 
+import com.google.sps.data.Comment;
+import com.google.appengine.api.datastore.DatastoreService;
+import com.google.appengine.api.datastore.DatastoreServiceFactory;
+import com.google.appengine.api.datastore.Entity;
+import com.google.appengine.api.datastore.PreparedQuery;
+import com.google.appengine.api.datastore.Query;
+import com.google.appengine.api.datastore.Query.SortDirection;
 import com.google.gson.Gson;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Arrays;
+import java.util.List;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -32,38 +39,74 @@ public class DataServlet extends HttpServlet {
 
   @Override
   public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
-    // Send the JSON as the response.
-    String json = new Gson().toJson(comments);
+    // Get the maximum amount of comments to display data from the server.
+    int maxCommentsObtained = getMaxComments(request);
+
+    // Prepare a Query instance with the Comment kind of entity to load.
+    Query query = new Query("Comment").addSort("timestamp", SortDirection.DESCENDING);
+
+    DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
+    PreparedQuery results = datastore.prepare(query);
+
+    // Get the maximum amount of comments that can be displayed on a page.
+    List<Comment> comments = new ArrayList<>();
+    for (Entity entity : results.asIterable()) {
+      long id = entity.getKey().getId();
+      String text = (String) entity.getProperty("text");
+      long timestamp = (long) entity.getProperty("timestamp");
+
+      Comment comment = new Comment(id, text, timestamp);
+      comments.add(comment);
+      if(comments.size() >= maxCommentsObtained){
+        break;
+      }
+    }
+
+    Gson gson = new Gson();
+
     response.setContentType("application/json;");
-    response.getWriter().println(json);
+    response.getWriter().println(gson.toJson(comments));
   }
 
   @Override
   public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
-    // Get the input from the form.
-    String text = getParameter(request, "text-input", "");
+    // Get the comment text input from the form.
+    String text = request.getParameter("text-input");
+    long timestamp = System.currentTimeMillis();
 
-    // Respond with the result.
-    comments.add(text);
-    response.setContentType("text/html;");
-    for (int commentIndex = 0; commentIndex < comments.size(); commentIndex++){
-      response.getWriter().println(comments.get(commentIndex));
-    }
+    // Create an Entity for the comment that can be entered into the DataStore.
+    Entity commentEntity = new Entity("Comment");
+    commentEntity.setProperty("text", text);
+    commentEntity.setProperty("timestamp", timestamp);
+
+    // Put newly created Entity.
+    DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
+    datastore.put(commentEntity);
 
     // Redirect back to the HTML page.
     response.sendRedirect("/index.html");
   }
 
-  /**
-   * Returns the request parameter.
-   * @return the request parameter, or the default value if the parameter
-   *         was not specified by the client.
-   */
-  private String getParameter(HttpServletRequest request, String name, String defaultValue) {
-    String value = request.getParameter(name);
-    if (value == null) {
-      return defaultValue;
+  /** Returns the maximum number of comments to display, or -1 if the choice was invalid. */
+  private int getMaxComments(HttpServletRequest request) {
+    // Get the number of comments to display from the maximum comments selection form.
+    String stringMaxComments = request.getParameter("max-comments");
+
+    // Convert the input to an int.
+    int maxComments = -1;
+    try {
+      maxComments = Integer.parseInt(stringMaxComments);
+    } catch (NumberFormatException e) {
+      System.err.println("Could not convert to int: " + maxComments);
+      return -1;
     }
-    return value;
+
+    // We only allow 1-3 comments to be displayed on the screen.
+    if (maxComments < 1 || maxComments > 3) {
+      System.err.println("Error: Maximum number of comments must be 1-3. Value entered: " + maxComments);
+      return -1;
+    }
+
+    return maxComments;
   }
 }

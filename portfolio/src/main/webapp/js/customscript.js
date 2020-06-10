@@ -13,37 +13,51 @@
 // limitations under the License.
 
 /**
- * Adds a random greeting to the page.
+ * Fetches comments from the server and adds them to the DOM. 
+ * TODO(ntarn): Fix how many comments are displayed when submitting a comment.
  */
-function addRandomGreeting() {
-  const greetings =
-      ['I have built an app that tracks the carbon footprint of companies', 'worked on detecting sarcasm in Twitter and Reddit posts', 'visualized dominance hierarchies in zebra finches'];
+function loadComments() {
+   const maxComments = document.getElementById('maxComments').value;
+   fetch('/data?max-comments='+ maxComments)  // Sends a request to /the URL.
+    .then(response => response.json()) // Parses the response as JSON.
+    .then((comments) => { // Now we can reference the fields in comments.
+      console.log(comments);
+      const commentListElement = document.getElementById('comment-list'); // Retrieve the list of comments at the ElementById.
+      commentListElement.innerHTML = "";
+      comments.forEach((comment) => {
+        commentListElement.appendChild(createCommentElement(comment));
+      })
+    });
+}  
 
-  // Pick a random greeting.
-  const greeting = greetings[Math.floor(Math.random() * greetings.length)];
 
-  // Add it to the page.
-  const greetingContainer = document.getElementById('greeting-container');
-  greetingContainer.innerText = greeting;
-}
+/** Creates an element that represents a comment, including its delete button. */
+function createCommentElement(comment) {
+  const commentElement = document.createElement('li');
+  commentElement.className = 'comment';
 
-// Adds "Hello Natalie!" to the page.
-async function getHelloNameUsingAsyncAwait() {
-  console.log('Fetching Hello Name!');
-  const response = await fetch('/data');
-  console.log('Handling the response.');
-  const name = await response.text();
-  console.log('Adding quote to dom: ' + name);
-  document.getElementById('quote-container').innerHTML = name;
-}
+  const titleElement = document.createElement('span');
+  console.log('Adding comments to dom: ' + comment.text);
+  titleElement.innerText = comment.text;
 
-// Parse the ArrayList comments as JSON.
-function printComments(){
-  fetch('/data')  // Sends a request to /data .
-  .then(response => response.json()) // Parses the response as JSON.
-  .then((comments) => { // Now we can reference the fields in comments.
-    console.log(comments);
-    console.log('Adding comments to dom: ' + comments);
-    document.getElementById('print-comments').innerHTML = comments;
+  const deleteButtonElement = document.createElement('button');
+  deleteButtonElement.innerText = 'Delete';
+  deleteButtonElement.addEventListener('click', () => {
+    deleteComment(comment);
+
+    // Remove the comment from the DOM.
+    commentElement.remove();
   });
+
+  commentElement.appendChild(titleElement);
+  commentElement.appendChild(deleteButtonElement);
+  return commentElement;
+}
+
+/** Tells the server to delete the comment. */
+function deleteComment(comment) {
+  const params = new URLSearchParams();
+  params.append('id', comment.id);
+  console.log('ID of comments to be removed' + params);
+  fetch('/delete-data?' + params.toString(), {method: 'POST'});
 }
