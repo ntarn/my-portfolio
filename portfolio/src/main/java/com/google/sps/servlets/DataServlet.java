@@ -32,13 +32,11 @@ import javax.servlet.http.HttpServletResponse;
 
 /*
  * A Servlet that returns some example content. 
- * TODO(ntarn): Modify this file to handle comments data.
  */
 @WebServlet("/data")
 public class DataServlet extends HttpServlet {
 
   private int previousMax = 1;
-  private final String TEXT = "text";
 
   @Override
   public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
@@ -77,25 +75,6 @@ public class DataServlet extends HttpServlet {
     response.setContentType("application/json;");
     response.getWriter().println(gson.toJson(comments));
   }
-
-  // @Override
-  // public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
-  //   // Get the comment text input from the form.
-  //   String text = request.getParameter("text-input");
-  //   long timestamp = System.currentTimeMillis();
-
-  //   // Create an Entity for the comment that can be entered into the DataStore.
-  //   Entity commentEntity = new Entity("Comment");
-  //   commentEntity.setProperty("text", text);
-  //   commentEntity.setProperty("timestamp", timestamp);
-
-  //   // Put newly created Entity.
-  //   DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
-  //   datastore.put(commentEntity);
-
-  //   // Redirect back to the HTML page.
-  //   response.sendRedirect("/comments.html");
-  // }
 
   /** Returns the maximum number of comments to display, or -1 if the choice was invalid. */
   private int getMaxComments(HttpServletRequest request) {

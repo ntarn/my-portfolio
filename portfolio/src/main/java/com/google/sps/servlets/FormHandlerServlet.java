@@ -52,20 +52,65 @@ import javax.servlet.http.HttpServletResponse;
 @WebServlet("/my-form-handler")
 public class FormHandlerServlet extends HttpServlet {
 
+  private int previousMax = 1;
+
+  @Override
+  public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
+    // Get the maximum amount of comments to display data from the server.
+    int maxCommentsObtained = getMaxComments(request);
+    if (previousMax == 1 && maxCommentsObtained != -1){
+      previousMax = maxCommentsObtained;
+    }
+    else if (maxCommentsObtained == -1){
+      maxCommentsObtained = previousMax;
+      System.err.println("ntarn debug previous max: " + maxCommentsObtained);
+    }
+
+    // Prepare a Query instance with the Comment kind of entity to load.
+    Query query = new Query("Comment").addSort("timestamp", SortDirection.DESCENDING);
+
+    DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
+    PreparedQuery results = datastore.prepare(query);
+
+    // Get the maximum amount of comments that can be displayed on a page.
+    List<Comment> comments = new ArrayList<>();
+    for (Entity entity : results.asIterable()) {
+      long id = entity.getKey().getId();
+      String text = (String) entity.getProperty("text");
+      long timestamp = (long) entity.getProperty("timestamp");
+      String imageUrl = (String) entity.getProperty("imageUrl");
+      Comment comment = new Comment(id, text, timestamp, imageUrl);
+      comments.add(comment);
+      if(comments.size() >= maxCommentsObtained){
+        break;
+      }
+    }
+
+    Gson gson = new Gson();
+
+    response.setContentType("application/json;");
+    response.getWriter().println(gson.toJson(comments));
+  }
+
+
   @Override
   public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
+    System.err.println("ntarn debug: doPOST working");
     // Get the comment text input from the form.
     String text = request.getParameter("text-input");
     long timestamp = System.currentTimeMillis();
+    String imageUrl = "";
 
     // Get the URL of the image that the user uploaded to Blobstore.
-    String imageUrl = getUploadedFileUrl(request, "image");
+    if(request.getParameter("image")!=null){
+      imageUrl = getUploadedFileUrl(request, "image");
+    }
 
     // Create an Entity for the comment that can be entered into the DataStore.
     Entity commentEntity = new Entity("Comment");
     commentEntity.setProperty("text", text);
     commentEntity.setProperty("timestamp", timestamp);
-    commentEntity.setProperty("imageUrl", imageUrl);
+    commentEntity.setProperty("imageUrl", imageUrl);// == null ? "" : imageUrl); //separate this somehow
 
     // Put newly created Entity.
     DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
@@ -73,16 +118,6 @@ public class FormHandlerServlet extends HttpServlet {
 
     // Redirect back to the HTML page.
     response.sendRedirect("/comments.html");
-
-    // Output some HTML that shows the data the user entered.
-    // A real codebase would probably store these in Datastore.
-    // PrintWriter out = response.getWriter();
-    // out.println("<p>Here's the image you uploaded:</p>");
-    // out.println("<a href=\"" + imageUrl + "\">");
-    // out.println("<img src=\"" + imageUrl + "\" />");
-    // out.println("</a>");
-    // out.println("<p>Here's the text you entered:</p>");
-    // out.println(text);
   }
 
   /** Returns a URL that points to the uploaded file, or null if the user didn't upload a file. */
@@ -90,6 +125,7 @@ public class FormHandlerServlet extends HttpServlet {
     BlobstoreService blobstoreService = BlobstoreServiceFactory.getBlobstoreService();
     Map<String, List<BlobKey>> blobs = blobstoreService.getUploads(request);
     List<BlobKey> blobKeys = blobs.get(formInputElementName);
+    System.err.println("ntarn debug: blobKeys obtained");
 
     // User submitted form without selecting a file, so we can't get a URL. (dev server)
     if (blobKeys == null || blobKeys.isEmpty()) {
@@ -121,5 +157,22 @@ public class FormHandlerServlet extends HttpServlet {
     } catch (MalformedURLException e) {
       return imagesService.getServingUrl(options);
     }
+  }
+
+  /** Returns the maximum number of comments to display, or -1 if the choice was invalid. */
+  private int getMaxComments(HttpServletRequest request) {
+    // Get the number of comments to display from the maximum comments selection form.
+    String stringMaxComments = request.getParameter("max-comments");
+
+    // Convert the input to an int.
+    int maxComments = -1;
+    try {
+      maxComments = Integer.parseInt(stringMaxComments);
+    } catch (NumberFormatException e) {
+      System.err.println("Could not convert to int: " + maxComments);
+      return -1;
+    }
+
+    return maxComments;
   }
 }

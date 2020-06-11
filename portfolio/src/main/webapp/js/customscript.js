@@ -17,8 +17,8 @@
  * TODO(ntarn): Fix how many comments are displayed when submitting a comment.
  */
 function loadComments() {
-   const maxComments = document.getElementById('maxComments').value;
-   fetch('/data?max-comments='+ maxComments)  // Sends a request to /the URL.
+   const maxComments = document.getElementById('max-comments').value;
+   fetch('/my-form-handler?max-comments='+ maxComments)  // Sends a request to the URL.
     .then(response => response.json()) // Parses the response as JSON.
     .then((comments) => { // Now we can reference the fields in comments.
       console.log(comments);
@@ -34,7 +34,7 @@ function loadComments() {
 /** Creates an element that represents a comment, including its delete button. */
 function createCommentElement(comment) {
   const commentElement = document.createElement('li');
-  commentElement.className = 'comment';
+  commentElement.className = 'comment'; // Add a className to enable styling.
 
   const titleElement = document.createElement('span');
   console.log('Adding comments to dom: ' + comment.text);
@@ -68,13 +68,19 @@ function deleteComment(comment) {
 }
 
 function fetchBlobstoreUrlAndShowForm() {
+  console.log("Checking if fetchBlob is called");
   fetch('/blobstore-upload-url')
       .then((response) => {
         return response.text();
       })
       .then((imageUploadUrl) => {
         const messageForm = document.getElementById('my-form');
-        messageForm.action = imageUploadUrl;
-        // messageForm.classList.remove('hidden');
+        messageForm.action = imageUploadUrl; //set this somewhere else
       });
+}
+
+function handleForm() {
+  console.log("Checking if handleForm is called");
+  const messageForm = document.getElementById('my-form');
+  messageForm.action = "/my-form-handler"; //set this somewhere else
 }

@@ -77,20 +77,9 @@
 
 .comment {
   border-bottom: 1px dashed #efefef;
-  overflow: auto;
   margin-bottom: 10px;
+  overflow: auto;
   padding: 1.25rem 2rem;
-  /* box-shadow: 0 0.1875rem 0.1875rem 0 rgba(0, 0, 0, 0.1) !important;
-  height: auto;
-  font-family: "Varela Round", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
-  font-size: 80%;
-  letter-spacing: 0.15rem;
-  border: 0; */
-  /* border: thin solid black;
-  display: flex;
-  margin: 10px;
-  padding: 10px;
-  width: 300px; */
 }
 
 .comment span {
