@@ -100,12 +100,9 @@ public class FormHandlerServlet extends HttpServlet {
 
   @Override
   public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
-    System.out.println("ntarn debug: doPOST working");
     // Get the comment text input from the form.
     String text = request.getParameter("text-input");
-    System.out.println("ntarn debug: text is " + text);
     List<String> parameterNamesList =   Collections.list(request.getParameterNames());
-    System.out.println("ntarn debug: " + parameterNamesList);
     long timestamp = System.currentTimeMillis();
     String imageUrl = "";
 
