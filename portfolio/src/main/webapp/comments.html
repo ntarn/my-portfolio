@@ -17,7 +17,7 @@
         <link href="css/customstyles.css" rel="stylesheet" />
         <link href="css/styles.css" rel="stylesheet" />
     </head>
-    <body id="page-top" onload="fetchBlobstoreUrlAndShowForm()">
+    <body id="page-top" onload="loadComments(); fetchBlobstoreUrlAndShowForm();">
         <!-- Navigation-->
         <nav class="navbar navbar-expand-lg navbar-light fixed-top" id="mainNav">
             <div class="container">
@@ -44,10 +44,11 @@
                           <p>Upload an image:</p>
                           <input type="file" name="image" onchange="fetchBlobstoreUrlAndShowForm()">
                           <br/><br/>
-                          <button class="btn btn-primary mx-auto" type="submit" onclick="">Comment</button>
+                          <button class="btn btn-primary mx-auto" type="submit" onclick="fetchBlobstoreUrlAndShowForm()">Comment</button>
                         </form> 
                         <p>Choose max number of comments:</p>
                         <select id="max-comments" name="max-comments" class="form-control" onchange="loadComments()">
+                          <option id ="default-max" value="-1">Choose an Option</option>
                           <option value="1">1</option>
                           <option value="2">2</option>
                           <option value="3">3</option>

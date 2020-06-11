@@ -14,21 +14,25 @@
 
 /**
  * Fetches comments from the server and adds them to the DOM. 
- * TODO(ntarn): Fix how many comments are displayed when submitting a comment.
+ * TODO(ntarn): Fix how many comments are displayed in dropdown when submitting a comment (especially when there are a large amount of comments doesn't show number).
  */
 function loadComments() {
-   const maxComments = document.getElementById('max-comments').value;
-   fetch('/my-form-handler?max-comments='+ maxComments)  // Sends a request to the URL.
-    .then(response => response.json()) // Parses the response as JSON.
-    .then((comments) => { // Now we can reference the fields in comments.
-      console.log(comments);
-      const commentListElement = document.getElementById('comment-list'); // Retrieve the list of comments at the ElementById.
-      commentListElement.innerHTML = "";
-      comments.forEach((comment) => {
-        commentListElement.appendChild(createCommentElement(comment));
-      })
-    });
+  const maxComments = document.getElementById('max-comments').value;
+  fetch('/my-form-handler?max-comments='+ maxComments)  // Sends a request to the URL.
+  .then(response => response.json()) // Parses the response as JSON.
+  .then((comments) => { // Now we can reference the fields in comments.
+    console.log(comments);
+    element = document.getElementById('max-comments');
+    console.log('setting default to:' + comments.length);
+    element.value = comments.length;
+    const commentListElement = document.getElementById('comment-list'); // Retrieve the list of comments at the ElementById.
+    commentListElement.innerHTML = "";
+    comments.forEach((comment) => {
+      commentListElement.appendChild(createCommentElement(comment));
+    })
+  });
 }  
+
 
 
 /** Creates an element that represents a comment, including its delete button. */

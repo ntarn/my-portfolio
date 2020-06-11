@@ -37,6 +37,7 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Collections;
 import java.util.Map;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -60,10 +61,14 @@ public class FormHandlerServlet extends HttpServlet {
     int maxCommentsObtained = getMaxComments(request);
     if (previousMax == 1 && maxCommentsObtained != -1){
       previousMax = maxCommentsObtained;
+      System.err.println("ntarn debug previous max change to current max: " + maxCommentsObtained);
     }
     else if (maxCommentsObtained == -1){
       maxCommentsObtained = previousMax;
       System.err.println("ntarn debug previous max: " + maxCommentsObtained);
+    }
+    else{
+      System.err.println("ntarn debug previous max reach else statement: " + maxCommentsObtained);
     }
 
     // Prepare a Query instance with the Comment kind of entity to load.
@@ -99,11 +104,13 @@ public class FormHandlerServlet extends HttpServlet {
     // Get the comment text input from the form.
     String text = request.getParameter("text-input");
     System.out.println("ntarn debug: text is " + text);
+    List<String> parameterNamesList =   Collections.list(request.getParameterNames());
+    System.out.println("ntarn debug: " + parameterNamesList);
     long timestamp = System.currentTimeMillis();
     String imageUrl = "";
 
     // Get the URL of the image that the user uploaded to Blobstore.
-    if(request.getParameter("image")!=null){
+    if(request.getParameter("image") != null){
       imageUrl = getUploadedFileUrl(request, "image");
     }
 
