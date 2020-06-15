@@ -8,7 +8,8 @@
         <title>Natalie Tarn | Software Engineer</title>
         <link rel="icon" type="image/x-icon" href="assets/img/favicon.ico" />
         <!-- Font Awesome icons (free version)-->
-        <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAXanqT2bm8j5LjYpw0MD4o9Fnx-NZiQAc"></script>
+        <script async defer
+        src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAXanqT2bm8j5LjYpw0MD4o9Fnx-NZiQAc&callback=createMap"></script>
         <script src="https://use.fontawesome.com/releases/v5.13.0/js/all.js" crossorigin="anonymous"></script>
         <!-- Google fonts-->
         <link href="https://fonts.googleapis.com/css?family=Varela+Round" rel="stylesheet" />
@@ -33,7 +34,7 @@
                 </div>
             </div>
         </nav>
-        <header class="">
+        <header class="fun-masthead">
           <div class="container">
             <div id="map"></div>
         	</div>
@@ -46,8 +47,8 @@
         <!-- Third party plugin JS-->
         <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.4.1/jquery.easing.min.js"></script>
         <!-- Core themes JS-->
+        <script src="js/mapscript.js"></script>
         <script src="js/customscript.js"></script>
         <script src="js/scripts.js"></script>
     </body>
 </html>
-        
