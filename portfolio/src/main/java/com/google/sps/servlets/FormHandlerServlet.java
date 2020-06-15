@@ -111,7 +111,7 @@ public class FormHandlerServlet extends HttpServlet {
       imageUrl = getUploadedFileUrl(request, "image");
     }
 
-    // Create an Entity for the comment that can be entered into the DataStore.
+    // Create an Entity for the comment that can be entered into the Datastore.
     Entity commentEntity = new Entity("Comment");
     commentEntity.setProperty("text", text);
     commentEntity.setProperty("timestamp", timestamp);
