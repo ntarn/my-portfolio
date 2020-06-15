@@ -125,7 +125,7 @@ public class FormHandlerServlet extends HttpServlet {
     response.sendRedirect("/comments.html");
   }
 
-  /** Returns a URL that points to the uploaded file, or null if the user didn't upload a file. */
+  /** Returns a URL that points to the uploaded file, or {@code null} if the user didn't upload a file. */
   private String getUploadedFileUrl(HttpServletRequest request, String formInputElementName) {
     BlobstoreService blobstoreService = BlobstoreServiceFactory.getBlobstoreService();
     Map<String, List<BlobKey>> blobs = blobstoreService.getUploads(request);
