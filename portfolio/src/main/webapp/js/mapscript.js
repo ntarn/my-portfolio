@@ -190,8 +190,7 @@ function createMap() {
   {name: 'Styled Map'});
 
   var sunnyvale = new google.maps.LatLng(37.402601, -122.015315);
-  // Create a map object, and include the MapTypeId to add
-  // to the map type control.
+  // Create a map object, and include the MapTypeId to add to the map type control.
   var map = new google.maps.Map(document.getElementById('map'), {
     center: sunnyvale,
     zoom: 3,

@@ -31,7 +31,6 @@ import com.google.appengine.api.images.ServingUrlOptions;
 import com.google.gson.Gson;
 import com.google.sps.data.Comment;
 import java.io.IOException;
-import java.io.IOException;
 import java.io.PrintWriter;
 import java.net.MalformedURLException;
 import java.net.URL;
@@ -46,7 +45,7 @@ import javax.servlet.http.HttpServletResponse;
 
 
 /**
- * When the user submits the form, Blobstore processes the file upload and then forwards the request
+ * Servlet that processes a form with a comment request. When the user submits the form, Blobstore processes the file upload and then forwards the request
  * to this servlet. This servlet can then process the request using the file URL we get from
  * Blobstore.
  */
@@ -54,6 +53,10 @@ import javax.servlet.http.HttpServletResponse;
 public class FormHandlerServlet extends HttpServlet {
 
   private int previousMax = 1;
+  private final String COMMENT = "comment";
+  private final String TEXT = "text";
+  private final String TIMESTAMP = "timestamp";
+  private final String IMAGEURL = "imageUrl";
 
   @Override
   public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
@@ -72,18 +75,18 @@ public class FormHandlerServlet extends HttpServlet {
     }
 
     // Prepare a Query instance with the Comment kind of entity to load.
-    Query query = new Query("Comment").addSort("timestamp", SortDirection.DESCENDING);
+    Query query = new Query(COMMENT).addSort(TIMESTAMP, SortDirection.DESCENDING);
 
     DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
     PreparedQuery results = datastore.prepare(query);
 
-    // Get the maximum amount of comments that can be displayed on a page.
+    // Get the maximum number of comments that can be displayed on a page.
     List<Comment> comments = new ArrayList<>();
     for (Entity entity : results.asIterable()) {
       long id = entity.getKey().getId();
-      String text = (String) entity.getProperty("text");
-      long timestamp = (long) entity.getProperty("timestamp");
-      String imageUrl = (String) entity.getProperty("imageUrl");
+      String text = (String) entity.getProperty(TEXT);
+      long timestamp = (long) entity.getProperty(TIMESTAMP);
+      String imageUrl = (String) entity.getProperty(IMAGEURL);
       Comment comment = new Comment(id, text, timestamp, imageUrl);
       comments.add(comment);
       if(comments.size() >= maxCommentsObtained){
@@ -102,30 +105,29 @@ public class FormHandlerServlet extends HttpServlet {
   public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
     // Get the comment text input from the form.
     String text = request.getParameter("text-input");
-    List<String> parameterNamesList =   Collections.list(request.getParameterNames());
+    List<String> parameterNamesList = Collections.list(request.getParameterNames());
     long timestamp = System.currentTimeMillis();
     String imageUrl = "";
 
     // Get the URL of the image that the user uploaded to Blobstore.
-    if(request.getParameter("image") != null){
+    if (request.getParameter("image") != null){
       imageUrl = getUploadedFileUrl(request, "image");
     }
 
     // Create an Entity for the comment that can be entered into the DataStore.
-    Entity commentEntity = new Entity("Comment");
-    commentEntity.setProperty("text", text);
-    commentEntity.setProperty("timestamp", timestamp);
-    commentEntity.setProperty("imageUrl", imageUrl);// == null ? "" : imageUrl); //separate this somehow
+    Entity commentEntity = new Entity(COMMENT);
+    commentEntity.setProperty(TEXT, text);
+    commentEntity.setProperty(TIMESTAMP, timestamp);
+    commentEntity.setProperty(IMAGEURL, imageUrl);
 
-    // Put newly created Entity.
+    // Put newly created Entity into the Datastore.
     DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
     datastore.put(commentEntity);
 
-    // Redirect back to the HTML page.
     response.sendRedirect("/comments.html");
   }
 
-  /** Returns a URL that points to the uploaded file, or null if the user didn't upload a file. */
+  /** Returns a URL that points to the uploaded file, or {@code null} if the user didn't upload a file. */
   private String getUploadedFileUrl(HttpServletRequest request, String formInputElementName) {
     BlobstoreService blobstoreService = BlobstoreServiceFactory.getBlobstoreService();
     Map<String, List<BlobKey>> blobs = blobstoreService.getUploads(request);
@@ -169,12 +171,11 @@ public class FormHandlerServlet extends HttpServlet {
     // Get the number of comments to display from the maximum comments selection form.
     String stringMaxComments = request.getParameter("max-comments");
 
-    // Convert the input to an int.
     int maxComments = -1;
     try {
       maxComments = Integer.parseInt(stringMaxComments);
     } catch (NumberFormatException e) {
-      System.err.println("Could not convert to int: " + maxComments);
+      System.err.println("Could not convert to int: " + stringMaxComments);
       return -1;
     }
 
