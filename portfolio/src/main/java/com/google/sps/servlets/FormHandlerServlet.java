@@ -102,7 +102,7 @@ public class FormHandlerServlet extends HttpServlet {
   public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
     // Get the comment text input from the form.
     String text = request.getParameter("text-input");
-    List<String> parameterNamesList =   Collections.list(request.getParameterNames());
+    List<String> parameterNamesList = Collections.list(request.getParameterNames());
     long timestamp = System.currentTimeMillis();
     String imageUrl = "";
 
