@@ -117,7 +117,7 @@ public class FormHandlerServlet extends HttpServlet {
     commentEntity.setProperty("timestamp", timestamp);
     commentEntity.setProperty("imageUrl", imageUrl);// == null ? "" : imageUrl); //separate this somehow
 
-    // Put newly created Entity.
+    // Put newly created Entity into the Datastore.
     DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
     datastore.put(commentEntity);
 
