@@ -75,7 +75,7 @@ public class FormHandlerServlet extends HttpServlet {
     }
 
     // Prepare a Query instance with the Comment kind of entity to load.
-    Query query = new Query("Comment").addSort("timestamp", SortDirection.DESCENDING);
+    Query query = new Query(COMMENT).addSort(TIMESTAMP, SortDirection.DESCENDING);
 
     DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
     PreparedQuery results = datastore.prepare(query);
@@ -110,7 +110,7 @@ public class FormHandlerServlet extends HttpServlet {
     String imageUrl = "";
 
     // Get the URL of the image that the user uploaded to Blobstore.
-    if(request.getParameter("image") != null){
+    if (request.getParameter("image") != null){
       imageUrl = getUploadedFileUrl(request, "image");
     }
 
@@ -124,7 +124,6 @@ public class FormHandlerServlet extends HttpServlet {
     DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
     datastore.put(commentEntity);
 
-    // Redirect back to the HTML page.
     response.sendRedirect("/comments.html");
   }
 
@@ -172,12 +171,11 @@ public class FormHandlerServlet extends HttpServlet {
     // Get the number of comments to display from the maximum comments selection form.
     String stringMaxComments = request.getParameter("max-comments");
 
-    // Convert the input to an int.
     int maxComments = -1;
     try {
       maxComments = Integer.parseInt(stringMaxComments);
     } catch (NumberFormatException e) {
-      System.err.println("Could not convert to int: " + maxComments);
+      System.err.println("Could not convert to int: " + stringMaxComments);
       return -1;
     }
 

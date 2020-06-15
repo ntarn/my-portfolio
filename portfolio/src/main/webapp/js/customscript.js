@@ -20,16 +20,16 @@ function loadComments() {
   const maxComments = document.getElementById('max-comments').value;
   fetch('/my-form-handler?max-comments='+ maxComments)  // Sends a request to the URL.
   .then(response => response.json()) // Parses the response as JSON.
-  .then((comments) => { // Now we can reference the fields in comments.
+  .then((comments) => { // Now we can access the comments with this variable.
     console.log(comments);
     element = document.getElementById('max-comments');
-    console.log('setting default to:' + comments.length);
+    console.log('Setting default to:' + comments.length);
     element.value = comments.length;
     const commentListElement = document.getElementById('comment-list'); // Retrieve the list of comments at the ElementById.
     commentListElement.innerHTML = "";
     comments.forEach((comment) => {
       commentListElement.appendChild(createCommentElement(comment));
-    })
+    });
   });
 }  
 
@@ -68,23 +68,23 @@ function deleteComment(comment) {
   const params = new URLSearchParams();
   params.append('id', comment.id);
   console.log('ID of comments to be removed' + params);
-  fetch('/delete-data?' + params.toString(), {method: 'POST'});
+  fetch('/delete-comment?' + params.toString(), {method: 'POST'});
 }
 
 function fetchBlobstoreUrlAndShowForm() {
   console.log("Checking if fetchBlob is called");
   fetch('/blobstore-upload-url')
-      .then((response) => {
-        return response.text();
-      })
-      .then((imageUploadUrl) => {
-        const messageForm = document.getElementById('my-form');
-        messageForm.action = imageUploadUrl; //set this somewhere else
-      });
+    .then((response) => {
+      return response.text();
+    })
+    .then((imageUploadUrl) => {
+      const messageForm = document.getElementById('my-form');
+      messageForm.action = imageUploadUrl;
+    });
 }
 
 function handleForm() {
   console.log("Checking if handleForm is called");
   const messageForm = document.getElementById('my-form');
-  messageForm.action = "/my-form-handler"; //set this somewhere else
+  messageForm.action = "/my-form-handler"; 
 }
