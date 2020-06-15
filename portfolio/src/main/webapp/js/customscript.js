@@ -38,7 +38,7 @@ function loadComments() {
 /** Creates an element that represents a comment, including its delete button. */
 function createCommentElement(comment) {
   const commentElement = document.createElement('li');
-  commentElement.className = 'comment'; // Add a className to enable styling.
+  commentElement.className = 'comment';
 
   const titleElement = document.createElement('span');
   console.log('Adding comments to dom: ' + comment.text);

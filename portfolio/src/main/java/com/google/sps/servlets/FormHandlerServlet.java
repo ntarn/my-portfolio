@@ -80,7 +80,7 @@ public class FormHandlerServlet extends HttpServlet {
     DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
     PreparedQuery results = datastore.prepare(query);
 
-    // Get the maximum amount of comments that can be displayed on a page.
+    // Get the maximum number of comments that can be displayed on a page.
     List<Comment> comments = new ArrayList<>();
     for (Entity entity : results.asIterable()) {
       long id = entity.getKey().getId();
@@ -105,7 +105,7 @@ public class FormHandlerServlet extends HttpServlet {
   public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
     // Get the comment text input from the form.
     String text = request.getParameter("text-input");
-    List<String> parameterNamesList =   Collections.list(request.getParameterNames());
+    List<String> parameterNamesList = Collections.list(request.getParameterNames());
     long timestamp = System.currentTimeMillis();
     String imageUrl = "";
 
@@ -120,7 +120,7 @@ public class FormHandlerServlet extends HttpServlet {
     commentEntity.setProperty(TIMESTAMP, timestamp);
     commentEntity.setProperty(IMAGEURL, imageUrl);
 
-    // Put newly created Entity.
+    // Put newly created Entity into the Datastore.
     DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
     datastore.put(commentEntity);
 
@@ -128,7 +128,7 @@ public class FormHandlerServlet extends HttpServlet {
     response.sendRedirect("/comments.html");
   }
 
-  /** Returns a URL that points to the uploaded file, or null if the user didn't upload a file. */
+  /** Returns a URL that points to the uploaded file, or {@code null} if the user didn't upload a file. */
   private String getUploadedFileUrl(HttpServletRequest request, String formInputElementName) {
     BlobstoreService blobstoreService = BlobstoreServiceFactory.getBlobstoreService();
     Map<String, List<BlobKey>> blobs = blobstoreService.getUploads(request);
