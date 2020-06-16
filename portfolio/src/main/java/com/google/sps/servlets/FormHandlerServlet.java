@@ -110,9 +110,9 @@ public class FormHandlerServlet extends HttpServlet {
     String imageUrl = "";
 
     // Get the URL of the image that the user uploaded to Blobstore.
-    if (request.getParameter("image") != null){
+    //if (request.getParameter("image") != null){
       imageUrl = getUploadedFileUrl(request, "image");
-    }
+    //}
 
     // Create an Entity for the comment that can be entered into the DataStore.
     Entity commentEntity = new Entity(COMMENT);
@@ -148,22 +148,25 @@ public class FormHandlerServlet extends HttpServlet {
       blobstoreService.delete(blobKey);
       return null;
     }
-
+    else{
+      return blobKey.getKeyString();
+    }
+ 
     // We could check the validity of the file here, e.g. to make sure it's an image file
     // https://stackoverflow.com/q/10779564/873165
 
     // Use ImagesService to get a URL that points to the uploaded file.
-    ImagesService imagesService = ImagesServiceFactory.getImagesService();
-    ServingUrlOptions options = ServingUrlOptions.Builder.withBlobKey(blobKey);
+    // ImagesService imagesService = ImagesServiceFactory.getImagesService();
+    // ServingUrlOptions options = ServingUrlOptions.Builder.withBlobKey(blobKey);
 
-    // To support running in Google Cloud Shell with AppEngine's dev server, we must use the relative
-    // path to the image, rather than the path returned by imagesService which contains a host.
-    try {
-      URL url = new URL(imagesService.getServingUrl(options));
-      return url.getPath();
-    } catch (MalformedURLException e) {
-      return imagesService.getServingUrl(options);
-    }
+    // // To support running in Google Cloud Shell with AppEngine's dev server, we must use the relative
+    // // path to the image, rather than the path returned by imagesService which contains a host.
+    // try {
+    //   URL url = new URL(imagesService.getServingUrl(options));
+    //   return url.getPath();
+    // } catch (MalformedURLException e) {
+    //   return imagesService.getServingUrl(options);
+    // }
   }
 
   /** Returns the maximum number of comments to display, or -1 if the choice was invalid. */

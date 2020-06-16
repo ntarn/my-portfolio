@@ -33,8 +33,6 @@ function loadComments() {
   });
 }  
 
-
-
 /** Creates an element that represents a comment, including its delete button. */
 function createCommentElement(comment) {
   const commentElement = document.createElement('li');
@@ -44,9 +42,16 @@ function createCommentElement(comment) {
   console.log('Adding comments to dom: ' + comment.text);
   titleElement.innerText = comment.text;
 
+  const request = new Request('/blobstore-serve?blob-key=' + comment.imageUrl);
   const imageUrlElement = document.createElement('img');
-  console.log('Adding images to dom: ' + comment.imageUrl);
-  imageUrlElement.src = comment.imageUrl; 
+  fetch(request).then(response => response.blob()).then((blob) => {
+    console.log('Adding images to dom: ' + comment.imageUrl);
+    imageUrlElement.src = window.URL.createObjectURL(blob);
+  })
+  
+  // const imageUrlElement = document.createElement('img');
+  // console.log('Adding images to dom: ' + comment.imageUrl);
+  // imageUrlElement.src = comment.imageUrl; 
 
   const deleteButtonElement = document.createElement('button');
   deleteButtonElement.innerText = 'Delete';
