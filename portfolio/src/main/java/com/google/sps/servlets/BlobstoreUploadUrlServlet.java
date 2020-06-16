@@ -23,8 +23,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 /**
- * Servlet that creates a URL in the response to allow a user to upload a file to Blobstore when the fetch() function requests the /blobstore-upload-url URL. 
- * Navigate to /blobstore-upload-url to see the Blobstore URL.
+ * Servlet that creates a URL in the response to allow a user to upload a file
+ * to Blobstore when the fetch() function requests the /blobstore-upload-url
+ * URL. Navigate to /blobstore-upload-url to see the Blobstore URL.
  */
 @WebServlet("/blobstore-upload-url")
 public class BlobstoreUploadUrlServlet extends HttpServlet {

@@ -43,11 +43,11 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-
 /**
- * Servlet that processes a form with a comment request. When the user submits the form, Blobstore processes the file upload and then forwards the request
- * to this servlet. This servlet can then process the request using the file URL we get from
- * Blobstore.
+ * Servlet that processes a form with a comment request. When the user submits
+ * the form, Blobstore processes the file upload and then forwards the request
+ * to this servlet. This servlet can then process the request using the file URL
+ * we get from Blobstore.
  */
 @WebServlet("/my-form-handler")
 public class FormHandlerServlet extends HttpServlet {
@@ -62,15 +62,13 @@ public class FormHandlerServlet extends HttpServlet {
   public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
     // Get the maximum amount of comments to display data from the server.
     int maxCommentsObtained = getMaxComments(request);
-    if (previousMax == 1 && maxCommentsObtained != -1){
+    if (previousMax == 1 && maxCommentsObtained != -1) {
       previousMax = maxCommentsObtained;
       System.err.println("ntarn debug previous max change to current max: " + maxCommentsObtained);
-    }
-    else if (maxCommentsObtained == -1){
+    } else if (maxCommentsObtained == -1) {
       maxCommentsObtained = previousMax;
       System.err.println("ntarn debug previous max: " + maxCommentsObtained);
-    }
-    else{
+    } else {
       System.err.println("ntarn debug previous max reach else statement: " + maxCommentsObtained);
     }
 
@@ -89,7 +87,7 @@ public class FormHandlerServlet extends HttpServlet {
       String imageUrl = (String) entity.getProperty(IMAGEURL);
       Comment comment = new Comment(id, text, timestamp, imageUrl);
       comments.add(comment);
-      if(comments.size() >= maxCommentsObtained){
+      if (comments.size() >= maxCommentsObtained) {
         break;
       }
     }
@@ -100,7 +98,6 @@ public class FormHandlerServlet extends HttpServlet {
     response.getWriter().println(gson.toJson(comments));
   }
 
-
   @Override
   public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
     // Get the comment text input from the form.
@@ -110,9 +107,7 @@ public class FormHandlerServlet extends HttpServlet {
     String imageUrl = "";
 
     // Get the URL of the image that the user uploaded to Blobstore.
-    //if (request.getParameter("image") != null){
-      imageUrl = getUploadedFileUrl(request, "image");
-    //}
+    imageUrl = getUploadedFileUrl(request, "image");
 
     // Create an Entity for the comment that can be entered into the DataStore.
     Entity commentEntity = new Entity(COMMENT);
@@ -127,14 +122,18 @@ public class FormHandlerServlet extends HttpServlet {
     response.sendRedirect("/comments.html");
   }
 
-  /** Returns a URL that points to the uploaded file, or {@code null} if the user didn't upload a file. */
+  /**
+   * Returns a URL that points to the uploaded file, or {@code null} if the user
+   * didn't upload a file.
+   */
   private String getUploadedFileUrl(HttpServletRequest request, String formInputElementName) {
     BlobstoreService blobstoreService = BlobstoreServiceFactory.getBlobstoreService();
     Map<String, List<BlobKey>> blobs = blobstoreService.getUploads(request);
     List<BlobKey> blobKeys = blobs.get(formInputElementName);
     System.out.println("ntarn debug: blobKeys obtained");
 
-    // User submitted form without selecting a file, so we can't get a URL. (dev server)
+    // User submitted form without selecting a file, so we can't get a URL. (dev
+    // server)
     if (blobKeys == null || blobKeys.isEmpty()) {
       return null;
     }
@@ -142,36 +141,24 @@ public class FormHandlerServlet extends HttpServlet {
     // Our form only contains a single file input, so get the first index.
     BlobKey blobKey = blobKeys.get(0);
 
-    // User submitted form without selecting a file, so we can't get a URL. (live server)
+    // User submitted form without selecting a file, so we can't get a URL. (live
+    // server)
     BlobInfo blobInfo = new BlobInfoFactory().loadBlobInfo(blobKey);
     if (blobInfo.getSize() == 0) {
       blobstoreService.delete(blobKey);
       return null;
-    }
-    else{
+    } else {
       return blobKey.getKeyString();
     }
- 
-    // We could check the validity of the file here, e.g. to make sure it's an image file
-    // https://stackoverflow.com/q/10779564/873165
-
-    // Use ImagesService to get a URL that points to the uploaded file.
-    // ImagesService imagesService = ImagesServiceFactory.getImagesService();
-    // ServingUrlOptions options = ServingUrlOptions.Builder.withBlobKey(blobKey);
-
-    // // To support running in Google Cloud Shell with AppEngine's dev server, we must use the relative
-    // // path to the image, rather than the path returned by imagesService which contains a host.
-    // try {
-    //   URL url = new URL(imagesService.getServingUrl(options));
-    //   return url.getPath();
-    // } catch (MalformedURLException e) {
-    //   return imagesService.getServingUrl(options);
-    // }
   }
 
-  /** Returns the maximum number of comments to display, or -1 if the choice was invalid. */
+  /**
+   * Returns the maximum number of comments to display, or -1 if the choice was
+   * invalid.
+   */
   private int getMaxComments(HttpServletRequest request) {
-    // Get the number of comments to display from the maximum comments selection form.
+    // Get the number of comments to display from the maximum comments selection
+    // form.
     String stringMaxComments = request.getParameter("max-comments");
 
     int maxComments = -1;
