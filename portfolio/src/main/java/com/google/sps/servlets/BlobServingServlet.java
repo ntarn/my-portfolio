@@ -10,15 +10,14 @@ import com.google.appengine.api.blobstore.BlobKey;
 import com.google.appengine.api.blobstore.BlobstoreService;
 import com.google.appengine.api.blobstore.BlobstoreServiceFactory;
 
+/** Servlet responsible for serving the Blobstore image file. */
 @WebServlet("/blobstore-serve")
 public class BlobServingServlet extends HttpServlet {
     private BlobstoreService blobstoreService = BlobstoreServiceFactory.getBlobstoreService();
 
     @Override
-    public void doGet(HttpServletRequest req, HttpServletResponse res)
-        throws IOException {
-            System.out.println("Serve the image");
-            BlobKey blobKey = new BlobKey(req.getParameter("blob-key"));
-            blobstoreService.serve(blobKey, res);
-        }
+    public void doGet(HttpServletRequest req, HttpServletResponse res) throws IOException {
+        BlobKey blobKey = new BlobKey(req.getParameter("blob-key"));
+        blobstoreService.serve(blobKey, res);
+    }
 }
