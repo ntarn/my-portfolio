@@ -1,2 +1,32 @@
 target/
 .idea
+portfolio/.classpath
+        portfolio/.factorypath
+        portfolio/.project
+        portfolio/.settings/
+        walkthroughs/week-2-web-development/examples/stanley/.classpath
+        walkthroughs/week-2-web-development/examples/stanley/.project
+        walkthroughs/week-2-web-development/examples/stanley/.settings/
+        walkthroughs/week-3-server/examples/favorite-color/.classpath
+        walkthroughs/week-3-server/examples/favorite-color/.project
+        walkthroughs/week-3-server/examples/favorite-color/.settings/
+        walkthroughs/week-3-server/examples/form-submission/.classpath
+        walkthroughs/week-3-server/examples/form-submission/.project
+        walkthroughs/week-3-server/examples/form-submission/.settings/
+        walkthroughs/week-3-server/examples/page-view-counter/.classpath
+        walkthroughs/week-3-server/examples/page-view-counter/.project
+        walkthroughs/week-3-server/examples/page-view-counter/.settings/
+        walkthroughs/week-3-server/examples/random-quotes/.classpath
+        walkthroughs/week-3-server/examples/random-quotes/.project
+        walkthroughs/week-3-server/examples/random-quotes/.settings/
+        walkthroughs/week-3-server/examples/request-debugger/.classpath
+        walkthroughs/week-3-server/examples/request-debugger/.project
+        walkthroughs/week-3-server/examples/request-debugger/.settings/
+        walkthroughs/week-3-server/examples/server-stats/.classpath
+        walkthroughs/week-3-server/examples/server-stats/.project
+        walkthroughs/week-3-server/examples/server-stats/.settings/
+        walkthroughs/week-3-server/examples/subtraction-game/.classpath
+        walkthroughs/week-3-server/examples/subtraction-game/.project
+        walkthroughs/week-3-server/examples/subtraction-game/.settings/
+        walkthroughs/week-3-server/examples/text-processor/.classpath
+        walkthroughs/week-3-server/examples/text-processor/.project
