@@ -104,7 +104,7 @@ public class FormHandlerServlet extends HttpServlet {
     String text = request.getParameter("text-input");
     List<String> parameterNamesList = Collections.list(request.getParameterNames());
     long timestamp = System.currentTimeMillis();
-    String imageUrl = "";
+    String imageUrl = null;
 
     // Get the URL of the image that the user uploaded to Blobstore.
     imageUrl = getUploadedFileUrl(request, "image");
@@ -113,13 +113,15 @@ public class FormHandlerServlet extends HttpServlet {
     Entity commentEntity = new Entity(COMMENT);
     commentEntity.setProperty(TEXT, text);
     commentEntity.setProperty(TIMESTAMP, timestamp);
-    commentEntity.setProperty(IMAGEURL, imageUrl);
+    if (imageUrl != null) {
+      commentEntity.setProperty(IMAGEURL, imageUrl);
+    }
 
     // Put newly created Entity into the Datastore.
     DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
     datastore.put(commentEntity);
 
-    response.sendRedirect("/comments.html");
+    response.sendRedirect("/comments.html"); //TODO (ntarn): Add parameter to front-end.
   }
 
   /**
