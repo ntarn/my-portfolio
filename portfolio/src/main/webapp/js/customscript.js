@@ -48,10 +48,6 @@ function createCommentElement(comment) {
     console.log('Adding images to dom: ' + comment.imageUrl);
     imageUrlElement.src = window.URL.createObjectURL(blob);
   })
-  
-  // const imageUrlElement = document.createElement('img');
-  // console.log('Adding images to dom: ' + comment.imageUrl);
-  // imageUrlElement.src = comment.imageUrl; 
 
   const deleteButtonElement = document.createElement('button');
   deleteButtonElement.innerText = 'Delete';
