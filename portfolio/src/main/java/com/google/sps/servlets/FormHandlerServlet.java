@@ -46,7 +46,7 @@ import javax.servlet.http.HttpServletResponse;
 /**
  * Servlet that processes a form with a comment request. When the user submits
  * the form, Blobstore processes the file upload and then forwards the request
- * to this servlet. This servlet can then process the request using the file URL
+ * to this servlet. The servlet can then process the request using the file URL
  * we get from Blobstore.
  */
 @WebServlet("/my-form-handler")
@@ -60,7 +60,7 @@ public class FormHandlerServlet extends HttpServlet {
 
   @Override
   public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
-    // Get the maximum amount of comments to display data from the server.
+    // Get the maximum number of comments to display from the server.
     int maxCommentsObtained = getMaxComments(request);
     if (previousMax == 1 && maxCommentsObtained != -1) {
       previousMax = maxCommentsObtained;
