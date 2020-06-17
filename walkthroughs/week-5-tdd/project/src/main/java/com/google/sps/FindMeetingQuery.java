@@ -14,64 +14,59 @@
 
 package com.google.sps;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Comparator;
 import java.util.HashMap;
 import java.util.Set;
 import java.util.TreeSet;
 
-import org.w3c.dom.events.Event;
-
 public final class FindMeetingQuery {
 
   public Collection<TimeRange> query(Collection<Event> events, MeetingRequest request) {
-    // subtract end of first event and start of second to see if it is long as the
-    // duration of request
     long duration = request.getDuration();
     Collection<String> attendees = request.getAttendees();
-    String firstAttendee = "";
-
-    HashMap<String, TreeSet<TimeRange>> indSchedules = new HashMap<>();
-
+    Collection<TimeRange> ret = new ArrayList<>();
+  
+    TreeSet<TimeRange> schedule = new TreeSet<>(TimeRange.ORDER_BY_START);
     for (Event event : events) {
       Set<String> eventAttendees = event.getAttendees();
       for (String eventAttendee : eventAttendees) {
         if (attendees.contains(eventAttendee)) {
-          // if the person who needs to be in the meeting is in this meeting add it to
-          // their schedule
-          if (firstAttendee.isEmpty()) {
-            firstAttendee = eventAttendee;
-          }
-          TreeSet<TimeRange> schedule = indSchedules.get(eventAttendee);
-          TimeRange addEvent = event.getWhen();
-          if (schedule != null) {
-            schedule.add(addEvent);
-            indSchedules.put(eventAttendee, schedule);
-          } else {
-            schedule = new TreeSet<>(TimeRange.ORDER_BY_START);
-            schedule.add(addEvent);
-            indSchedules.put(eventAttendee, schedule);
-          }
+          schedule.add(event.getWhen());
+          break;
         }
       }
     }
-    TimeRange previousEvent;
-    for (TimeRange tr : indSchedules.get(firstAttendee)){
-      if (previous == null){
-        previousEvent = tr;
-        continue;
-      }
-      else{
-        TimeRange open = new TimeRange(previousEvent.end(), tr.start(), false);
-        if(open.duration()>=duration){
-          for(String attendee: attendees){
-            
-          }
+    TimeRange previousEvent = TimeRange.fromStartEnd(0, 0, false);
+    for(TimeRange tr : schedule){
+    
+      // Case 1: |---| |---|
+      if(!previousEvent.overlaps(tr)){
+        TimeRange open = TimeRange.fromStartEnd(previousEvent.end(), tr.start(), false);
+        if (open.duration()>=duration){
+          ret.add(open);
         }
       }
-      previousEvent = tr;
+      else if(previousEvent.start()<=tr.start() && previousEvent.end()>=tr.end()){
+        // Case 3: |---------|
+        //            |---|
+        
+        tr = previousEvent;// Make sure previousEvent stays the same.
+        break;
+      }
+
+      
+      previousEvent =tr;
     }
 
-      throw new UnsupportedOperationException("TODO: Implement this method.");
+    System.out.println("ntarn debug: last TimeRange open");
+    TimeRange open = TimeRange.fromStartEnd(previousEvent.end(), 1440, false);
+    if(open.duration()>=duration){
+      ret.add(open);
+    }
+
+  
+    return ret;
   }
 }
