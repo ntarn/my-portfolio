@@ -60,7 +60,7 @@ public class FormHandlerServlet extends HttpServlet {
 
   @Override
   public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
-    // Get the maximum amount of comments to display data from the server.
+    // Get the maximum number of comments to display from the server.
     int maxCommentsObtained = getMaxComments(request);
     if (previousMax == 1 && maxCommentsObtained != -1) {
       previousMax = maxCommentsObtained;
