@@ -1,10 +1,10 @@
 .pf-pic {
   background: url("NatalieTarnming.jpg") no-repeat; /* Changes the grayscale profile picture to colored when hovered over.*/
   float: right;
-  height: 400px;
+  height: 200px;
   margin: 5px;
   position: relative;
-  width: 300px;
+  width: 200px;
   background-size: contain;
 }
 
@@ -112,4 +112,8 @@
   border: thin solid black;
   height: 300px;
   width: 100%; 
+}
+
+.text-align-left {
+  text-align: left;
 }
