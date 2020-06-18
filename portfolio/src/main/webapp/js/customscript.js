@@ -38,17 +38,21 @@ function createCommentElement(comment) {
   const commentElement = document.createElement('li');
   commentElement.className = 'comment';
 
-  const titleElement = document.createElement('span');
+  const titleElement = document.createElement('p');
   console.log('Adding comments to dom: ' + comment.text);
   titleElement.innerText = comment.text;
+  commentElement.appendChild(titleElement);
 
-  const request = new Request('/blobstore-serve?blob-key=' + comment.imageUrl);
-  const imageUrlElement = document.createElement('img');
-  fetch(request).then(response => response.blob()).then((blob) => {
-    console.log('Adding images to dom: ' + comment.imageUrl);
-    imageUrlElement.src = window.URL.createObjectURL(blob);
-  })
-
+  const imageUrlElement = null;
+  if (comment.imageUrl != null){
+    const request = new Request('/blobstore-serve?blob-key=' + comment.imageUrl);
+    const imageUrlElement = document.createElement('img');
+    fetch(request).then(response => response.blob()).then((blob) => {
+      console.log('Adding images to dom: ' + comment.imageUrl);
+      imageUrlElement.src = window.URL.createObjectURL(blob);
+    })
+    commentElement.appendChild(imageUrlElement);
+  }
   const deleteButtonElement = document.createElement('button');
   deleteButtonElement.innerText = 'Delete';
   deleteButtonElement.addEventListener('click', () => {
@@ -58,8 +62,6 @@ function createCommentElement(comment) {
     commentElement.remove();
   });
 
-  commentElement.appendChild(titleElement);
-  commentElement.appendChild(imageUrlElement);
   commentElement.appendChild(deleteButtonElement);
   return commentElement;
 }

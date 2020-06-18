@@ -193,7 +193,7 @@ function createMap() {
   // Create a map object, and include the MapTypeId to add to the map type control.
   var map = new google.maps.Map(document.getElementById('map'), {
     center: sunnyvale,
-    zoom: 3,
+    zoom: 4,
     mapTypeControlOptions: {
       mapTypeIds: ['roadmap', 'satellite', 'hybrid', 'terrain',
               'styled_map']

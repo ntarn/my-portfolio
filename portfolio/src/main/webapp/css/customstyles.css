@@ -1,10 +1,11 @@
 .pf-pic {
   background: url("NatalieTarnming.jpg") no-repeat; /* Changes the grayscale profile picture to colored when hovered over.*/
   float: right;
-  height: 200px;
-  margin: 5px;
+  height: 300px;
+  margin-left: 50px;
+  margin-top: 30px;
   position: relative;
-  width: 200px;
+  width: 300px;
   background-size: contain;
 }
 
@@ -71,28 +72,44 @@
 
 /* Contact Section Comments - Changes styling of each comment. */
 
+#control-image {
+  width: 75%;
+}
+
 #comment-list {
   list-style-type: none;
+  padding-left: 0;
 }
 
 .comment {
-  border-bottom: 1px dashed #efefef;
-  margin-bottom: 10px;
+  background-color: rgb(100, 161, 157);
+  margin-top: 10px;
   overflow: auto;
-  padding: 1.25rem 2rem;
+  padding: 1.25rem 1rem;
+  position: relative;
 }
 
-.comment span {
-  flex-grow: 1;
+.comment p {
+  color: white;
+  text-align: left;
 }
 
 .comment button {
-  background-color: #f8f9fa;
+  background-color: transparent;
   border: none;
-  color: #6c757d;
+  bottom: 10px;
+  box-shadow: 0 0.1875rem 0.1875rem 0 rgba(0, 0, 0, 0.1) !important;
+  color: white;
   font-size: 15px;
   position: absolute;
   right: 15px;
+  text-transform: none;
+  letter-spacing: none;
+}
+
+.comment img {
+  float: left;
+  max-height: 200px;
 }
 
 .fun-masthead {
@@ -109,11 +126,30 @@
 }
 
 #map {
-  border: thin solid black;
+  border-top: 50px solid black;
   height: 300px;
   width: 100%; 
 }
 
 .text-align-left {
   text-align: left;
+}
+
+#float-right {
+  display: inline-block;
+  float: right !important;
+}
+
+#overwrite-center {
+  display: inline-block;
+  text-align: left;
+
+}
+
+.full-screen-image{
+  height: 1400px;
+}
+
+.full-screen{
+  height: 90%;
 }
