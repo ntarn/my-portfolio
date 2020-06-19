@@ -26,18 +26,27 @@ public final class FindMeetingQuery {
   public Collection<TimeRange> query(Collection<Event> events, MeetingRequest request) {
     long duration = request.getDuration();
     Collection<String> attendees = request.getAttendees();
-    Collection<TimeRange> ret = new ArrayList<>();
+    Collection<String> optionalAttendees = request.getOptionalAttendees();
+    
+    Collection<TimeRange> retWithoutOptional = new ArrayList<>();
+    Collection<TimeRange> openOptional = new ArrayList<>();
+    Collection<TimeRange> retWithOptional = new ArrayList<>();
 
     TreeSet<TimeRange> schedule = new TreeSet<>(TimeRange.ORDER_BY_START);
+    TreeSet<TimeRange> optionalSchedule = new TreeSet<>(TimeRange.ORDER_BY_START);
     for (Event event : events) {
       Set<String> eventAttendees = event.getAttendees();
       for (String eventAttendee : eventAttendees) {
         if (attendees.contains(eventAttendee)) {
           schedule.add(event.getWhen());
-          break;
+        }
+        if (optionalAttendees.contains(eventAttendee)) {
+          optionalSchedule.add(event.getWhen());
         }
       }
     }
+
+    // Find open slots within mandatory attendees.
     TimeRange previousEvent = TimeRange.fromStartEnd(0, 0, false);
     for (TimeRange tr : schedule) {
 
@@ -45,7 +54,7 @@ public final class FindMeetingQuery {
       if (!previousEvent.overlaps(tr)) {
         TimeRange open = TimeRange.fromStartEnd(previousEvent.end(), tr.start(), false);
         if (open.duration() >= duration) {
-          ret.add(open);
+          retWithoutOptional.add(open);
         }
       } else if (previousEvent.start() <= tr.start() && previousEvent.end() >= tr.end()) {
         // Case 3: |---------|
@@ -58,12 +67,75 @@ public final class FindMeetingQuery {
       previousEvent = tr;
     }
 
-    System.out.println("ntarn debug: last TimeRange open");
+    // Add last TimeRange open considering only mandatory attendees.
     TimeRange open = TimeRange.fromStartEnd(previousEvent.end(), 1440, false);
     if (open.duration() >= duration) {
-      ret.add(open);
+      retWithoutOptional.add(open);
     }
 
+    // Find open slots within optional attendees.
+    TimeRange previousOptionalEvent = TimeRange.fromStartEnd(0, 0, false);
+    for (TimeRange tr : optionalSchedule) {
+
+      // Case 1: |---| |---|
+      if (!previousOptionalEvent.overlaps(tr)) {
+        TimeRange open = TimeRange.fromStartEnd(previousOptionalEvent.end(), tr.start(), false);
+        if (open.duration() >= duration) {
+          openOptional.add(open);
+        }
+      } else if (previousOptionalEvent.start() <= tr.start() && previousOPtionalEvent.end() >= tr.end()) {
+        // Case 3: |---------|
+        //            |---|
+
+        tr = previousOptionalEvent;// Make sure previousEvent stays the same.
+        break;
+      }
+
+      previousOptionalEvent = tr;
+    }
+
+    // Add last TimeRange open considering only optional attendees.
+    TimeRange openLastOptional = TimeRange.fromStartEnd(previousOptionalEvent.end(), 1440, false);
+    if (openLastOptional.duration() >= duration) {
+      openOptional.add(open);
+    }
+
+    boolean optionalCanAttend = false;
+    // Compare open mandatory TimeRanges with open optional TimeRanges.
+    for (TimeRange mtr: retWithOptional){
+      for(TimeRange otr: retWithoutOptional){
+        // Case 2a: |---|
+        //           |---|
+        if (mtr.overlaps(otr)) {
+          TimeRange openBoth;
+          if (mtr.start()<=otr.start() && mtr.end() <= otr.end()){
+            openBoth = new TimeRange.fromStartEnd(otr.start(), mtr.end(), true);  
+    
+          }
+          else if (otr.start()<=mtr.start() && otr.end() <= mtr.end()){
+            openBoth = new TimeRange.fromStartEnd(mtr.start(), otr.end(), true); 
+
+          }
+          else if (mtr.start() <= otr.start() && mtr.end() >= otr.end()) {
+            openBoth = new TimeRange.fromStartEnd(otr.start(), otr.end(), true); 
+
+          }
+          else if (otr.start() <= mtr.start() && otr.end() >= mtr.end()) {
+            openBoth = new TimeRange.fromStartEnd(mtr.start(), mtr.end(), true); 
+            
+          }
+          
+          if (openBoth.duration() >= duration) {
+            retWithOptional.add(openBoth);
+            optionalCanAttend = true;
+          }
+          break;
+          // Case 3: |---------|
+          //            |---|
+  
+
+      }
+    }
     return ret;
   }
 }
