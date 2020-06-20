@@ -68,9 +68,9 @@ public final class FindMeetingQuery {
     }
 
     // Add last TimeRange open considering only mandatory attendees.
-    TimeRange open = TimeRange.fromStartEnd(previousEvent.end(), 1440, false);
-    if (open.duration() >= duration) {
-      retWithoutOptional.add(open);
+    TimeRange lastOpen = TimeRange.fromStartEnd(previousEvent.end(), 1440, false);
+    if (lastOpen.duration() >= duration) {
+      retWithoutOptional.add(lastOpen);
     }
 
     // Find open slots within optional attendees.
@@ -83,7 +83,7 @@ public final class FindMeetingQuery {
         if (open.duration() >= duration) {
           openOptional.add(open);
         }
-      } else if (previousOptionalEvent.start() <= tr.start() && previousOPtionalEvent.end() >= tr.end()) {
+      } else if (previousOptionalEvent.start() <= tr.start() && previousOptionalEvent.end() >= tr.end()) {
         // Case 3: |---------|
         //            |---|
 
@@ -97,31 +97,37 @@ public final class FindMeetingQuery {
     // Add last TimeRange open considering only optional attendees.
     TimeRange openLastOptional = TimeRange.fromStartEnd(previousOptionalEvent.end(), 1440, false);
     if (openLastOptional.duration() >= duration) {
-      openOptional.add(open);
+      openOptional.add(openLastOptional);
     }
-
+    if (!attendees.isEmpty() && retWithoutOptional.isEmpty()){
+      return retWithoutOptional;
+    }
+    else if(attendees.isEmpty()){
+      return openOptional;
+    }
     boolean optionalCanAttend = false;
     // Compare open mandatory TimeRanges with open optional TimeRanges.
-    for (TimeRange mtr: retWithOptional){
-      for(TimeRange otr: retWithoutOptional){
+    for (TimeRange mtr: retWithoutOptional){
+      for(TimeRange otr: openOptional){
         // Case 2a: |---|
         //           |---|
         if (mtr.overlaps(otr)) {
-          TimeRange openBoth;
+          TimeRange openBoth = TimeRange.fromStartEnd(0, 0, false);
           if (mtr.start()<=otr.start() && mtr.end() <= otr.end()){
-            openBoth = new TimeRange.fromStartEnd(otr.start(), mtr.end(), true);  
-    
+            openBoth = TimeRange.fromStartEnd(otr.start(), mtr.end(), false);
           }
           else if (otr.start()<=mtr.start() && otr.end() <= mtr.end()){
-            openBoth = new TimeRange.fromStartEnd(mtr.start(), otr.end(), true); 
+            openBoth = TimeRange.fromStartEnd(mtr.start(), otr.end(), false); 
 
           }
           else if (mtr.start() <= otr.start() && mtr.end() >= otr.end()) {
-            openBoth = new TimeRange.fromStartEnd(otr.start(), otr.end(), true); 
+          // Case 3: |---------|
+          //            |---|
+            openBoth = TimeRange.fromStartEnd(otr.start(), otr.end(), false); 
 
           }
           else if (otr.start() <= mtr.start() && otr.end() >= mtr.end()) {
-            openBoth = new TimeRange.fromStartEnd(mtr.start(), mtr.end(), true); 
+            openBoth = TimeRange.fromStartEnd(mtr.start(), mtr.end(), false); 
             
           }
           
@@ -130,12 +136,14 @@ public final class FindMeetingQuery {
             optionalCanAttend = true;
           }
           break;
-          // Case 3: |---------|
-          //            |---|
-  
-
+        }
       }
     }
-    return ret;
+    if (!retWithOptional.isEmpty() && optionalCanAttend) {
+      return retWithOptional;
+    }
+    else{
+      return retWithoutOptional;
+    }
   }
 }
