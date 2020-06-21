@@ -17,14 +17,21 @@
  * TODO(ntarn): Fix how many comments are displayed in dropdown when submitting a comment (especially when there are a large amount of comments doesn't show number).
  */
 function loadComments() {
-  const maxComments = document.getElementById('max-comments').value;
+  var maxComments = document.getElementById('max-comments').value;
+  var previous = sessionStorage.getItem('max-comments');
+  if(maxComments == -1 && previous != null){
+    console.log('Setting max to previous max:' + previous);
+    maxComments = parseInt(previous);
+  }
   fetch('/my-form-handler?max-comments='+ maxComments)  // Sends a request to the URL.
   .then(response => response.json()) // Parses the response as JSON.
   .then((comments) => { // Now we can access the comments with this variable.
     console.log(comments);
     element = document.getElementById('max-comments');
-    console.log('Setting default to:' + comments.length);
+    console.log('Setting default to:' + comments.length.toString());
     element.value = comments.length;
+
+    sessionStorage.setItem('max-comments', comments.length);
     const commentListElement = document.getElementById('comment-list'); // Retrieve the list of comments at the ElementById.
     commentListElement.innerHTML = "";
     comments.forEach((comment) => {
