@@ -23,7 +23,7 @@ function loadComments() {
     console.log('ntarn debug: Setting max to previous max:' + previous);
     maxComments = parseInt(previous);
   }
-  fetch('/my-form-handler?max-comments='+ maxComments)  // Sends a request to the URL.
+  fetch('/form-handler?max-comments='+ maxComments)  // Sends a request to the URL.
   .then(response => response.json()) // Parses the response as JSON.
   .then((comments) => { // Now we can access the comments with this variable.
     console.log(comments);

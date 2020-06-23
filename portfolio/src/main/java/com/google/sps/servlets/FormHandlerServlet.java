@@ -49,7 +49,7 @@ import javax.servlet.http.HttpServletResponse;
  * to this servlet. This servlet can then process the request using the file URL
  * we get from Blobstore.
  */
-@WebServlet("/my-form-handler")
+@WebServlet("/form-handler")
 public class FormHandlerServlet extends HttpServlet {
 
   private int previousMax = 1;
@@ -62,15 +62,6 @@ public class FormHandlerServlet extends HttpServlet {
   public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
     // Get the maximum amount of comments to display data from the server.
     int maxCommentsObtained = getMaxComments(request);
-    if (previousMax == 1 && maxCommentsObtained != -1) {
-      previousMax = maxCommentsObtained;
-      System.err.println("ntarn debug previous max change to current max: " + maxCommentsObtained);
-    } else if (maxCommentsObtained == -1) {
-      maxCommentsObtained = previousMax;
-      System.err.println("ntarn debug previous max: " + maxCommentsObtained);
-    } else {
-      System.err.println("ntarn debug previous max reach else statement: " + maxCommentsObtained);
-    }
 
     // Prepare a Query instance with the Comment kind of entity to load.
     Query query = new Query(COMMENT).addSort(TIMESTAMP, SortDirection.DESCENDING);
@@ -85,8 +76,7 @@ public class FormHandlerServlet extends HttpServlet {
       String text = (String) entity.getProperty(TEXT);
       long timestamp = (long) entity.getProperty(TIMESTAMP);
       String imageUrl = (String) entity.getProperty(IMAGEURL);
-      Comment comment = new Comment(id, text, timestamp, imageUrl);
-      comments.add(comment);
+      comments.add(new Comment(id, text, timestamp, imageUrl));
       if (comments.size() >= maxCommentsObtained) {
         break;
       }
@@ -102,18 +92,18 @@ public class FormHandlerServlet extends HttpServlet {
   public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
     // Get the comment text input from the form.
     String text = request.getParameter("text-input");
-    List<String> parameterNamesList = Collections.list(request.getParameterNames());
     long timestamp = System.currentTimeMillis();
-    String imageUrl = "";
 
     // Get the URL of the image that the user uploaded to Blobstore.
-    imageUrl = getUploadedFileUrl(request, "image");
+    String imageUrl = getUploadedFileUrl(request, "image");
 
     // Create an Entity for the comment that can be entered into the DataStore.
     Entity commentEntity = new Entity(COMMENT);
     commentEntity.setProperty(TEXT, text);
     commentEntity.setProperty(TIMESTAMP, timestamp);
-    commentEntity.setProperty(IMAGEURL, imageUrl);
+    if (imageUrl != null) {
+      commentEntity.setProperty(IMAGEURL, imageUrl);
+    }
 
     // Put newly created Entity into the Datastore.
     DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
@@ -130,10 +120,8 @@ public class FormHandlerServlet extends HttpServlet {
     BlobstoreService blobstoreService = BlobstoreServiceFactory.getBlobstoreService();
     Map<String, List<BlobKey>> blobs = blobstoreService.getUploads(request);
     List<BlobKey> blobKeys = blobs.get(formInputElementName);
-    System.out.println("ntarn debug: blobKeys obtained");
 
-    // User submitted form without selecting a file, so we can't get a URL. (dev
-    // server)
+    // User submitted form without selecting a file, so we can't get a URL. (dev server)
     if (blobKeys == null || blobKeys.isEmpty()) {
       return null;
     }
@@ -153,8 +141,7 @@ public class FormHandlerServlet extends HttpServlet {
   }
 
   /**
-   * Returns the maximum number of comments to display, or -1 if the choice was
-   * invalid.
+   * Returns the maximum number of comments to display, or -1 if the choice was invalid.
    */
   private int getMaxComments(HttpServletRequest request) {
     // Get the number of comments to display from the maximum comments selection
