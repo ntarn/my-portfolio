@@ -52,7 +52,6 @@ import javax.servlet.http.HttpServletResponse;
 @WebServlet("/form-handler")
 public class FormHandlerServlet extends HttpServlet {
 
-  private int previousMax = 1;
   private final String COMMENT = "comment";
   private final String TEXT = "text";
   private final String TIMESTAMP = "timestamp";
@@ -97,7 +96,7 @@ public class FormHandlerServlet extends HttpServlet {
     // Get the URL of the image that the user uploaded to Blobstore.
     String imageUrl = getUploadedFileUrl(request, "image");
 
-    // Create an Entity for the comment that can be entered into the DataStore.
+    // Create an Entity for the comment that can be entered into the Datastore.
     Entity commentEntity = new Entity(COMMENT);
     commentEntity.setProperty(TEXT, text);
     commentEntity.setProperty(TIMESTAMP, timestamp);
