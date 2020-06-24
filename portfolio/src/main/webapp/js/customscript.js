@@ -23,17 +23,16 @@ function loadComments() {
     console.log('ntarn debug: Setting max to previous max:' + previous);
     maxComments = parseInt(previous);
   }
-  fetch('/form-handler?max-comments='+ maxComments) // Send a request to the URL.
-    .then(response => response.json()) // Parse the response as JSON.
-    .then((comments) => { // Access the comments with this variable.
-      console.log('ntarn debug: ' + comments);
+  fetch('/form-handler?max-comments='+ maxComments)  // Sends a request to the URL.
+    .then(response => response.json()) // Parses the response as JSON.
+    .then((comments) => { // Now we can access the comments with this variable.
+      console.log(comments);
       element = document.getElementById('max-comments');
       console.log('ntarn debug: Setting default to:' + comments.length.toString());
       element.value = comments.length;
 
       sessionStorage.setItem('max-comments', comments.length);
-      // Retrieve the list of comments at the ElementById.
-      const commentListElement = document.getElementById('comment-list'); 
+      const commentListElement = document.getElementById('comment-list'); // Retrieve the list of comments at the ElementById.
       commentListElement.innerHTML = '';
       comments.forEach((comment) => {
         commentListElement.appendChild(createCommentElement(comment));
@@ -55,7 +54,7 @@ function createCommentElement(comment) {
   fetch(request)
     .then(response => response.blob())
     .then((blob) => {
-      console.log('ntarn debug: Adding images to dom: ' + comment.imageUrl);
+      console.log('Adding images to dom: ' + comment.imageUrl);
       imageUrlElement.src = window.URL.createObjectURL(blob);
     });
 
