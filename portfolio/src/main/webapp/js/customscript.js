@@ -12,25 +12,31 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-/**
- * Fetches comments from the server and adds them to the DOM. 
- * TODO(ntarn): Fix how many comments are displayed in dropdown when submitting a comment (especially when there are a large amount of comments doesn't show number).
- */
+/** Fetches comments from the server and adds them to the DOM. */
 function loadComments() {
-  const maxComments = document.getElementById('max-comments').value;
-  fetch('/my-form-handler?max-comments='+ maxComments)  // Sends a request to the URL.
-  .then(response => response.json()) // Parses the response as JSON.
-  .then((comments) => { // Now we can access the comments with this variable.
-    console.log(comments);
-    element = document.getElementById('max-comments');
-    console.log('Setting default to:' + comments.length);
-    element.value = comments.length;
-    const commentListElement = document.getElementById('comment-list'); // Retrieve the list of comments at the ElementById.
-    commentListElement.innerHTML = "";
-    comments.forEach((comment) => {
-      commentListElement.appendChild(createCommentElement(comment));
+  var maxComments = document.getElementById('max-comments').value;
+  var previous = sessionStorage.getItem('max-comments');
+  if (maxComments == -1 && previous != null) {
+    console.log('ntarn debug: Setting max to previous max:' + previous);
+    maxComments = parseInt(previous);
+  }
+  fetch('/form-handler?max-comments='+ maxComments)  // Send a request to the URL.
+    .then(response => response.json()) // Parse the response as JSON.
+    .then((comments) => { // Access the comments.
+      console.log('ntarn debug: ' + comments);
+      element = document.getElementById('max-comments');
+      console.log('ntarn debug: Setting default to:' + comments.length.toString());
+      element.value = comments.length;
+
+      sessionStorage.setItem('max-comments', comments.length);
+
+      // Retrieve the list of comments at the ElementById.
+      const commentListElement = document.getElementById('comment-list'); 
+      commentListElement.innerHTML = '';
+      comments.forEach((comment) => {
+        commentListElement.appendChild(createCommentElement(comment));
+      });
     });
-  });
 }  
 
 /** Creates an element that represents a comment, including its delete button. */
@@ -39,19 +45,17 @@ function createCommentElement(comment) {
   commentElement.className = 'comment';
 
   const titleElement = document.createElement('span');
-  console.log('Adding comments to dom: ' + comment.text);
+  console.log('ntarn debug: Adding comments to dom: ' + comment.text);
   titleElement.innerText = comment.text;
 
   const request = new Request('/blobstore-serve?blob-key=' + comment.imageUrl);
   const imageUrlElement = document.createElement('img');
-  fetch(request).then(response => response.blob()).then((blob) => {
-    console.log('Adding images to dom: ' + comment.imageUrl);
-    imageUrlElement.src = window.URL.createObjectURL(blob);
-  })
-  
-  // const imageUrlElement = document.createElement('img');
-  // console.log('Adding images to dom: ' + comment.imageUrl);
-  // imageUrlElement.src = comment.imageUrl; 
+  fetch(request)
+    .then(response => response.blob())
+    .then((blob) => {
+      console.log('ntarn debug: Adding images to dom: ' + comment.imageUrl);
+      imageUrlElement.src = window.URL.createObjectURL(blob);
+    });
 
   const deleteButtonElement = document.createElement('button');
   deleteButtonElement.innerText = 'Delete';
@@ -72,12 +76,12 @@ function createCommentElement(comment) {
 function deleteComment(comment) {
   const params = new URLSearchParams();
   params.append('id', comment.id);
-  console.log('ID of comments to be removed' + params);
+  console.log('ntarn debug: ID of comments to be removed' + params);
   fetch('/delete-comment?' + params.toString(), {method: 'POST'});
 }
 
 function fetchBlobstoreUrlAndShowForm() {
-  console.log("Checking if fetchBlob is called");
+  console.log('ntarn debug: Checking if fetchBlob is called');
   fetch('/blobstore-upload-url')
     .then((response) => {
       return response.text();
@@ -89,8 +93,8 @@ function fetchBlobstoreUrlAndShowForm() {
 }
 
 function handleForm() {
-  console.log("Checking if handleForm is called");
+  console.log('ntarn debug: Checking if handleForm is called');
   const messageForm = document.getElementById('my-form');
-  messageForm.action = "/my-form-handler"; 
+  messageForm.action = '/my-form-handler'; 
 }
 
