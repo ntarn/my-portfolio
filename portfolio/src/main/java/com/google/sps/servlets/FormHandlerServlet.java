@@ -107,7 +107,7 @@ public class FormHandlerServlet extends HttpServlet {
     DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
     datastore.put(commentEntity);
 
-    response.sendRedirect("/comments.html"); //TODO (ntarn): Add parameter to front-end.
+    response.sendRedirect("/comments.html");
   }
 
   /**
