@@ -17,7 +17,7 @@
         <link href="css/customstyles.css" rel="stylesheet" />
         <link href="css/styles.css" rel="stylesheet" />
     </head>
-    <body id="page-top" onload="loadComments()">
+    <body id="page-top">
         <!-- Navigation-->
         <nav class="navbar navbar-expand-lg navbar-light fixed-top" id="mainNav">
             <div class="container">
@@ -27,6 +27,7 @@
                         <li class="nav-item"><a class="nav-link js-scroll-trigger" href="#about">About</a></li>
                         <li class="nav-item"><a class="nav-link js-scroll-trigger" href="#projects">Portfolio</a></li>
                         <li class="nav-item"><a class="nav-link js-scroll-trigger" href="#contact">Contact</a></li>
+                        <li class="nav-item"><a class="nav-link js-scroll-trigger" href="fun.html">Fun</a></li>
                         <!DOCTYPE html>
                     </ul>
                 </div>
@@ -39,7 +40,7 @@
                     <h2 class="text-white-50 mx-auto mt-2 mb-2">Hi, my name is</h2>
                     <h1 class="mx-auto my-0 text-uppercase">Natalie Tarn</h1>
                     <h2 class="text-white-50 mx-auto mt-2 mb-5">I'm a junior at Duke University and a software engineer with a passion for AI/ML and the planet.</h2>
-                    <a class="btn btn-primary js-scroll-trigger" href="contact">Get In Touch</a>
+                    <a class="btn btn-primary js-scroll-trigger" href="#contact">Get In Touch</a>
                 </div>
             </div>
         </header>
@@ -175,14 +176,7 @@
                     <div class="col-md-10 col-lg-8 mx-auto text-center">
                         <i class="far fa-paper-plane fa-2x mb-2 text-white"></i>
                         <h2 class="text-white mb-5">Get In Touch</h2>
-                        <p>Choose max number of comments:</p>
-                        <input type="number" id="max-comments" name="max-comments" min="1" max="3" value="">
-                        <button class="btn btn-primary mx-auto" type="submit" onclick="loadComments()">Submit</button>
-                        <form action="/data" class="form-inline d-flex" method="POST">
-                            <input class="form-control flex-fill mr-0 mr-sm-2 mb-3 mb-sm-0" id="inputEmail" name="text-input" type="" placeholder="Enter email address and comment..." />
-                            <button class="btn btn-primary mx-auto" type="submit">Comment</button>
-                        </form>
-                        <ul id="comment-list"></ul>
+                        <a href="comments.html" class="btn btn-primary mx-auto">Say Hello!</a>
                     </div>
                 </div>
             </div>
