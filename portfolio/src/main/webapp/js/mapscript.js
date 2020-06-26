@@ -232,6 +232,3 @@ function addLandmark(map, lat, lng, title, description) {
     infoWindow.open(map, marker);
   });
 }
-
-
- 
