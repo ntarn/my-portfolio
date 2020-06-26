@@ -1,6 +1,7 @@
+/** Creates a map with dark grayscale styling and adds marker information for main locations. */
 function createMap() {
   // Create a new StyledMapType object, passing it an array of styles, and the name to be displayed on the map type control.
-  var styledMapType = new google.maps.StyledMapType(
+  const styledMapType = new google.maps.StyledMapType(
     [
       {
         "elementType": "geometry",
@@ -200,7 +201,7 @@ function createMap() {
     }
   });
 
-  //Associate the styled map with the MapTypeId and set it to display.
+  // Associate the styled map with the MapTypeId and set it to display.
   map.mapTypes.set('styled_map', styledMapType);
   map.setMapTypeId('styled_map');
   var contentString = '<div id="content">'+
@@ -215,8 +216,10 @@ function createMap() {
     '</p>'+
     '</div>'+
     '</div>';
-  addLandmark(map, 37.402601, -122.015315, 'Sunnyvale', 'Where I\'m based');
-  addLandmark(map, 36.001339, -78.938218, 'Duke University', contentString);
+  const sunnyvaleLandmark = [map, 37.402601, -122.015315, 'Sunnyvale', 'Where I\'m based'];
+  const dukeLandmark = [map, 36.001339, -78.938218, 'Duke University', contentString]
+  addLandmark(sunnyvaleLandmark[0], sunnyvaleLandmark[1], sunnyvaleLandmark[2], sunnyvaleLandmark[3], sunnyvaleLandmark[4]);
+  addLandmark(dukeLandmark[0], dukeLandmark[1], dukeLandmark[2], dukeLandmark[3], dukeLandmark[4]);
 }
 
 /** Adds a marker that shows an info window when clicked. */
