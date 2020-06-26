@@ -12,17 +12,20 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-/**
- * Adds a random greeting to the page.
- */
-function addRandomGreeting() {
-  const greetings =
-      ['I have built an app that tracks the carbon footprint of companies', 'worked on detecting sarcasm in Twitter and Reddit posts', 'visualized dominance hierarchies in zebra finches'];
+package com.google.sps.data;
 
-  // Pick a random greeting.
-  const greeting = greetings[Math.floor(Math.random() * greetings.length)];
+/** A comment on the webpage. */
+public final class Comment {
 
-  // Add it to the page.
-  const greetingContainer = document.getElementById('greeting-container');
-  greetingContainer.innerText = greeting;
+  private final long id;
+  private final String text;
+  private final long timestamp;
+  private final String imageUrl;
+
+  public Comment(long id, String text, long timestamp, String imageUrl) {
+    this.id = id;
+    this.text = text;
+    this.timestamp = timestamp;
+    this.imageUrl = imageUrl;
+  }
 }
