@@ -204,7 +204,15 @@ function createMap() {
   // Associate the styled map with the MapTypeId and set it to display.
   map.mapTypes.set('styled_map', styledMapType);
   map.setMapTypeId('styled_map');
-  var contentString = '<div id="content">'+
+  
+  const sunnyvaleLat = 37.402601;
+  const sunnyvaleLong = -122.015315;
+  const sunnyvaleTitle = 'Sunnyvale';
+  const sunnyvaleDes = 'Where I\'m based';
+  const dukeLat = 36.001339;
+  const dukeLong = -78.938218;
+  const dukeTitle = 'Duke University';
+  const dukeDes = '<div id="content">'+
     '<div id="siteNotice">'+
     '</div>'+
     '<h1 id="firstHeading" class="firstHeading">Duke University</h1>'+
@@ -216,10 +224,8 @@ function createMap() {
     '</p>'+
     '</div>'+
     '</div>';
-  const sunnyvaleLandmark = [map, 37.402601, -122.015315, 'Sunnyvale', 'Where I\'m based'];
-  const dukeLandmark = [map, 36.001339, -78.938218, 'Duke University', contentString]
-  addLandmark(sunnyvaleLandmark[0], sunnyvaleLandmark[1], sunnyvaleLandmark[2], sunnyvaleLandmark[3], sunnyvaleLandmark[4]);
-  addLandmark(dukeLandmark[0], dukeLandmark[1], dukeLandmark[2], dukeLandmark[3], dukeLandmark[4]);
+  addLandmark(map, sunnyvaleLat, sunnyvaleLong, sunnyvaleTitle, sunnyvaleDes);
+  addLandmark(map, dukeLat, dukeLong, dukeTitle, dukeDes);
 }
 
 /** Adds a marker that shows an info window when clicked. */
