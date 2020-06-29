@@ -123,7 +123,7 @@ public final class FindMeetingQueryTest {
   }
 
   @Test
-  public void testFindMeetingWithEveryAttendeeConsideredAndOptionalAllDayEventReturnsTwoOpenTimeRanges() {
+  public void testFindMeetingWithEveryAttendeeConsideredAndOptionalAllDayEventReturnsThreeOpenTimeRanges() {
     // Have each person have different events. We should see two options because each person has
     // split the restricted times. Ignores optional attendee with all day event.
     //
