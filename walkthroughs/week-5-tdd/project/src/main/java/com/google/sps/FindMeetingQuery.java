@@ -50,7 +50,7 @@ public final class FindMeetingQuery {
     TimeRange previousEvent = TimeRange.fromStartEnd(0, 0, false);
     for (TimeRange timerange : schedule) {
       // Test Case 1: |---| |---|
-      if (!previousEvent.overlaps(tr)) {
+      if (!previousEvent.overlaps(timerange)) {
         TimeRange openTimeRange= TimeRange.fromStartEnd(previousEvent.end(), timerange.start(), false);
         if (openTimeRange.duration() >= duration) {
           openMandatoryTimeRanges.add(openTimeRange);
@@ -62,7 +62,7 @@ public final class FindMeetingQuery {
         timerange = previousEvent;
         break;
       }
-      previousEvent = tr;
+      previousEvent = timerange;
     }
 
     // Add last TimeRange open considering only mandatory attendees.
@@ -75,7 +75,7 @@ public final class FindMeetingQuery {
     TimeRange previousOptionalEvent = TimeRange.fromStartEnd(0, 0, false);
     for (TimeRange timerange : optionalSchedule) {
       // Test Case 1: |---| |---|
-      if (!previousOptionalEvent.overlaps(tr)) {
+      if (!previousOptionalEvent.overlaps(timerange)) {
         TimeRange openTimeRange = TimeRange.fromStartEnd(previousOptionalEvent.end(), timerange.start(), false);
         if (openTimeRange.duration() >= duration) {
           openOptionalTimeRanges.add(openTimeRange);
@@ -88,7 +88,7 @@ public final class FindMeetingQuery {
         break;
       }
 
-      previousOptionalEvent = tr;
+      previousOptionalEvent = timerange;
     }
 
     // Add last TimeRange open considering only optional attendees.
