@@ -51,7 +51,7 @@ public final class FindMeetingQuery {
     for (TimeRange timerange : schedule) {
       // Test Case 1: |---| |---|
       if (!previousEvent.overlaps(timerange)) {
-        TimeRange openTimeRange= TimeRange.fromStartEnd(previousEvent.end(), timerange.start(), false);
+        TimeRange openTimeRange = TimeRange.fromStartEnd(previousEvent.end(), timerange.start(), false);
         if (openTimeRange.duration() >= duration) {
           openMandatoryTimeRanges.add(openTimeRange);
         }
@@ -110,16 +110,24 @@ public final class FindMeetingQuery {
         //                   |---|
         if (openMandatoryTimeRange.overlaps(openOptionalTimeRange)) {
           TimeRange overlapTimeRange = TimeRange.fromStartEnd(0, 0, false);
-          if (openMandatoryTimeRange.start() <= openOptionalTimeRange.start() && openMandatoryTimeRange.end() <= openOptionalTimeRange.end()) {
-            overlapTimeRange = TimeRange.fromStartEnd(openOptionalTimeRange.start(), openMandatoryTimeRange.end(), false);
-          } else if (openOptionalTimeRange.start() <= openMandatoryTimeRange.start() && openOptionalTimeRange.end() <= openMandatoryTimeRange.end()) {
-            overlapTimeRange = TimeRange.fromStartEnd(openMandatoryTimeRange.start(), openOptionalTimeRange.end(), false);
-          } else if (openMandatoryTimeRange.start() <= openOptionalTimeRange.start() && openMandatoryTimeRange.end() >= openOptionalTimeRange.end()) {
+          if (openMandatoryTimeRange.start() <= openOptionalTimeRange.start()
+              && openMandatoryTimeRange.end() <= openOptionalTimeRange.end()) {
+            overlapTimeRange = TimeRange.fromStartEnd(openOptionalTimeRange.start(), openMandatoryTimeRange.end(),
+                false);
+          } else if (openOptionalTimeRange.start() <= openMandatoryTimeRange.start()
+              && openOptionalTimeRange.end() <= openMandatoryTimeRange.end()) {
+            overlapTimeRange = TimeRange.fromStartEnd(openMandatoryTimeRange.start(), openOptionalTimeRange.end(),
+                false);
+          } else if (openMandatoryTimeRange.start() <= openOptionalTimeRange.start()
+              && openMandatoryTimeRange.end() >= openOptionalTimeRange.end()) {
             // Compare Case 2: |---------|
             //                    |---|
-            overlapTimeRange = TimeRange.fromStartEnd(openOptionalTimeRange.start(), openOptionalTimeRange.end(), false);
-          } else if (openOptionalTimeRange.start() <= openMandatoryTimeRange.start() && openOptionalTimeRange.end() >= openMandatoryTimeRange.end()) {
-            overlapTimeRange = TimeRange.fromStartEnd(openMandatoryTimeRange.start(), openMandatoryTimeRange.end(), false);
+            overlapTimeRange = TimeRange.fromStartEnd(openOptionalTimeRange.start(), openOptionalTimeRange.end(),
+                false);
+          } else if (openOptionalTimeRange.start() <= openMandatoryTimeRange.start()
+              && openOptionalTimeRange.end() >= openMandatoryTimeRange.end()) {
+            overlapTimeRange = TimeRange.fromStartEnd(openMandatoryTimeRange.start(), openMandatoryTimeRange.end(),
+                false);
           }
 
           if (overlapTimeRange.duration() >= duration) {
@@ -131,6 +139,8 @@ public final class FindMeetingQuery {
       }
     }
 
+    // Check to see if there are overlapping open time ranges for mandatory and optional attendees. Return
+    // the correct collection of timeranges, depending on the overlap.
     if (!openAllAttendeesTimeRanges.isEmpty() && optionalCanAttend) {
       return openAllAttendeesTimeRanges;
     } else {
