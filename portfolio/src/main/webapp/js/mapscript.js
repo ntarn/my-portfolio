@@ -1,3 +1,13 @@
+/** A class that helps with organizing landmark information. */
+class Landmark {
+  constructor(lat, lng, title, des) {
+    this.lat = lat;
+    this.lng = lng;
+    this.title = title;
+    this.des = des;
+  }
+}
+
 /** Creates a map with dark grayscale styling and adds marker information for main locations. */
 function createMap() {
   // Create a new {@code StyledMapType} object,  with an array of styles, and the name to be displayed on the map type control.
@@ -205,13 +215,7 @@ function createMap() {
   map.mapTypes.set('styled_map', styledMapType);
   map.setMapTypeId('styled_map');
   
-  const sunnyvaleLat = 37.402601;
-  const sunnyvaleLong = -122.015315;
-  const sunnyvaleTitle = 'Sunnyvale';
-  const sunnyvaleDes = 'Where I\'m based';
-  const dukeLat = 36.001339;
-  const dukeLong = -78.938218;
-  const dukeTitle = 'Duke University';
+  sunnyvale = new Landmark(37.402601, -122.015315, 'Sunnyvale', 'Where I\'m based');
   const dukeDes = '<div id="content">'+
     '<div id="siteNotice">'+
     '</div>'+
@@ -224,8 +228,9 @@ function createMap() {
     '</p>'+
     '</div>'+
     '</div>';
-  addLandmark(map, sunnyvaleLat, sunnyvaleLong, sunnyvaleTitle, sunnyvaleDes);
-  addLandmark(map, dukeLat, dukeLong, dukeTitle, dukeDes);
+  duke = new Landmark(36.001339, -78.938218, 'Duke University', dukeDes);
+  addLandmark(map, sunnyvale.lat, sunnyvale.lng, sunnyvale.title, sunnyvale.des);
+  addLandmark(map, duke.lat, duke.lng, duke.title, duke.des);
 }
 
 /** Adds a marker that shows an info window when clicked. */
