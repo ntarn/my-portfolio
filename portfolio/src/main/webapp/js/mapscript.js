@@ -215,8 +215,8 @@ function createMap() {
   map.mapTypes.set('styled_map', styledMapType);
   map.setMapTypeId('styled_map');
   
-  const SUNNYVALE = new Landmark(37.402601, -122.015315, 'Sunnyvale', 'Where I\'m based');
-  const DUKEDESCRIPTION = '<div id="content">'+
+  const SUNNYVALE_LANDMARK = new Landmark(37.402601, -122.015315, 'Sunnyvale', 'Where I\'m based');
+  const DUKE_DESCRIPTION = '<div id="content">'+
     '<div id="siteNotice">'+
     '</div>'+
     '<h1 id="firstHeading" class="firstHeading">Duke University</h1>'+
@@ -228,7 +228,7 @@ function createMap() {
     '</p>'+
     '</div>'+
     '</div>';
-  const DUKE = new Landmark(36.001339, -78.938218, 'Duke University', DUKEDESCRIPTION);
+  const DUKE_LANDMARK = new Landmark(36.001339, -78.938218, 'Duke University', DUKEDESCRIPTION);
   addLandmark(map, SUNNYVALE.latitude, SUNNYVALE.longitude, SUNNYVALE.title, SUNNYVALE.description);
   addLandmark(map, DUKE.latitude, DUKE.longitude, DUKE.title, DUKE.description);
 }
