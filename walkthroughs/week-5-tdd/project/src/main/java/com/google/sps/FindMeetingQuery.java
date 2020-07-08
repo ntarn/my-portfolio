@@ -14,59 +14,10 @@
 
 package com.google.sps;
 
-import java.util.ArrayList;
 import java.util.Collection;
-import java.util.Comparator;
-import java.util.HashMap;
-import java.util.Set;
-import java.util.TreeSet;
 
 public final class FindMeetingQuery {
-
   public Collection<TimeRange> query(Collection<Event> events, MeetingRequest request) {
-    long duration = request.getDuration();
-    Collection<String> attendees = request.getAttendees();
-    Collection<TimeRange> ret = new ArrayList<>();
-  
-    TreeSet<TimeRange> schedule = new TreeSet<>(TimeRange.ORDER_BY_START);
-    for (Event event : events) {
-      Set<String> eventAttendees = event.getAttendees();
-      for (String eventAttendee : eventAttendees) {
-        if (attendees.contains(eventAttendee)) {
-          schedule.add(event.getWhen());
-          break;
-        }
-      }
-    }
-    TimeRange previousEvent = TimeRange.fromStartEnd(0, 0, false);
-    for(TimeRange tr : schedule){
-    
-      // Case 1: |---| |---|
-      if(!previousEvent.overlaps(tr)){
-        TimeRange open = TimeRange.fromStartEnd(previousEvent.end(), tr.start(), false);
-        if (open.duration()>=duration){
-          ret.add(open);
-        }
-      }
-      else if(previousEvent.start()<=tr.start() && previousEvent.end()>=tr.end()){
-        // Case 3: |---------|
-        //            |---|
-        
-        tr = previousEvent;// Make sure previousEvent stays the same.
-        break;
-      }
-
-      
-      previousEvent =tr;
-    }
-
-    System.out.println("ntarn debug: last TimeRange open");
-    TimeRange open = TimeRange.fromStartEnd(previousEvent.end(), 1440, false);
-    if(open.duration()>=duration){
-      ret.add(open);
-    }
-
-  
-    return ret;
+    throw new UnsupportedOperationException("TODO: Implement this method.");
   }
 }
