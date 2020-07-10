@@ -12,10 +12,7 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-/**
- * Fetches comments from the server and adds them to the DOM. 
- * TODO(ntarn): Fix how many comments are displayed in dropdown when submitting a comment (especially when there are a large amount of comments doesn't show number).
- */
+/** Fetches comments from the server and adds them to the DOM. */
 function loadComments() {
   var maxComments = document.getElementById('max-comments').value;
   var previous = sessionStorage.getItem('max-comments');
@@ -32,6 +29,7 @@ function loadComments() {
       element.value = comments.length;
 
       sessionStorage.setItem('max-comments', comments.length);
+
       // Retrieve the list of comments at the ElementById.
       const commentListElement = document.getElementById('comment-list'); 
       commentListElement.innerHTML = '';
@@ -99,3 +97,4 @@ function handleForm() {
   const messageForm = document.getElementById('my-form');
   messageForm.action = '/my-form-handler'; 
 }
+

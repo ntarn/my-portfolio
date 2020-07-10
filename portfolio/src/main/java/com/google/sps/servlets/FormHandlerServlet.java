@@ -23,8 +23,8 @@ import com.google.appengine.api.datastore.DatastoreService;
 import com.google.appengine.api.datastore.DatastoreServiceFactory;
 import com.google.appengine.api.datastore.Entity;
 import com.google.appengine.api.datastore.PreparedQuery;
-import com.google.appengine.api.datastore.Query.SortDirection;
 import com.google.appengine.api.datastore.Query;
+import com.google.appengine.api.datastore.Query.SortDirection;
 import com.google.appengine.api.images.ImagesService;
 import com.google.appengine.api.images.ImagesServiceFactory;
 import com.google.appengine.api.images.ServingUrlOptions;
@@ -35,8 +35,8 @@ import java.io.PrintWriter;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
-import java.util.List;
 import java.util.Collections;
+import java.util.List;
 import java.util.Map;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -46,27 +46,26 @@ import javax.servlet.http.HttpServletResponse;
 /**
  * Servlet that processes a form with a comment request. When the user submits
  * the form, Blobstore processes the file upload and then forwards the request
- * to this servlet. This servlet can then process the request using the file URL
+ * to this servlet. The servlet can then process the request using the file URL
  * we get from Blobstore.
  */
 @WebServlet("/form-handler")
 public class FormHandlerServlet extends HttpServlet {
 
-  private final String COMMENT = "comment";
-  private final String TEXT = "text";
-  private final String TIMESTAMP = "timestamp";
-  private final String IMAGEURL = "imageUrl";
+  private final static String COMMENT = "comment";
+  private final static String TEXT = "text";
+  private final static String TIMESTAMP = "timestamp";
+  private final static String IMAGEURL = "imageUrl";
 
   @Override
   public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
-    // Get the maximum amount of comments to display data from the server.
+    // Get the maximum number of comments to display from the server.
     int maxCommentsObtained = getMaxComments(request);
 
-    // Prepare a Query instance with the Comment kind of entity to load.
+    // Prepare a Query instance to load a Comment entity.
     Query query = new Query(COMMENT).addSort(TIMESTAMP, SortDirection.DESCENDING);
 
-    DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
-    PreparedQuery results = datastore.prepare(query);
+    PreparedQuery results = DatastoreServiceFactory.getDatastoreService().prepare(query);
 
     // Get the maximum number of comments that can be displayed on a page.
     List<Comment> comments = new ArrayList<>();
@@ -128,15 +127,9 @@ public class FormHandlerServlet extends HttpServlet {
     // Our form only contains a single file input, so get the first index.
     BlobKey blobKey = blobKeys.get(0);
 
-    // User submitted form without selecting a file, so we can't get a URL. (live
-    // server)
+    // User submitted form without selecting a file, so we can't get a URL. (live server)
     BlobInfo blobInfo = new BlobInfoFactory().loadBlobInfo(blobKey);
-    if (blobInfo.getSize() == 0) {
-      blobstoreService.delete(blobKey);
-      return null;
-    } else {
-      return blobKey.getKeyString();
-    }
+    return (blobInfo.getSize() == 0) ? null : blobKey.getKeyString();
   }
 
   /**
