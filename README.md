@@ -1,6 +1,6 @@
 # Google Student Training in Engineering Program
 
-This repo contains Natalie Tarn's portfolio and STEP projects.
+This repo contains Natalie Tarn's professional technical portfolio.
 This work is based on the [Google Software Product Sprint](https://g.co/softwareproductsprint) program.
 
 To get started:
@@ -10,4 +10,5 @@ To get started:
 - Open the GitHub setup walkthrough: `teachme ~/step/walkthroughs/week-1-setup/github-setup-walkthrough.md`
   - If the tutorial panel does not open or display the walkthrough contents, try refreshing the page.
 
-
+- Locally run with `mvn clean package appengine:run`
+- Deploy with `mvn clean package appengine:deploy`

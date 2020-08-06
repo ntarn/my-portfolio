@@ -1,6 +1,17 @@
+/** A class that helps with organizing landmark information. */
+class Landmark {
+  constructor(latitude, longitude, title, description) {
+    this.latitude = latitude;
+    this.longitude = longitude;
+    this.title = title;
+    this.description = description;
+  }
+}
+
+/** Creates a map with dark grayscale styling and adds marker information for main locations. */
 function createMap() {
-  // Create a new StyledMapType object, passing it an array of styles, and the name to be displayed on the map type control.
-  var styledMapType = new google.maps.StyledMapType(
+  // Create a new {@code StyledMapType} object, with an array of styles, and the name to be displayed on the map type control.
+  const styledMapType = new google.maps.StyledMapType(
     [
       {
         "elementType": "geometry",
@@ -200,10 +211,12 @@ function createMap() {
     }
   });
 
-  //Associate the styled map with the MapTypeId and set it to display.
+  // Associate the styled map with the MapTypeId and set it to display.
   map.mapTypes.set('styled_map', styledMapType);
   map.setMapTypeId('styled_map');
-  var contentString = '<div id="content">'+
+  
+  const SUNNYVALE_LANDMARK = new Landmark(37.402601, -122.015315, 'Sunnyvale', 'Where I\'m based');
+  const DUKE_DESCRIPTION = '<div id="content">'+
     '<div id="siteNotice">'+
     '</div>'+
     '<h1 id="firstHeading" class="firstHeading">Duke University</h1>'+
@@ -215,8 +228,9 @@ function createMap() {
     '</p>'+
     '</div>'+
     '</div>';
-  addLandmark(map, 37.402601, -122.015315, 'Sunnyvale', 'Where I\'m based');
-  addLandmark(map, 36.001339, -78.938218, 'Duke University', contentString);
+  const DUKE_LANDMARK = new Landmark(36.001339, -78.938218, 'Duke University', DUKEDESCRIPTION);
+  addLandmark(map, SUNNYVALE.latitude, SUNNYVALE.longitude, SUNNYVALE.title, SUNNYVALE.description);
+  addLandmark(map, DUKE.latitude, DUKE.longitude, DUKE.title, DUKE.description);
 }
 
 /** Adds a marker that shows an info window when clicked. */
@@ -229,6 +243,3 @@ function addLandmark(map, lat, lng, title, description) {
     infoWindow.open(map, marker);
   });
 }
-
-
- 
