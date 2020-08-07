@@ -10275,7 +10275,8 @@ body {
   padding-top: 10rem;
 }
 .about-section p {
-  /* TODO(ntarn): Check if this may be needed. margin-bottom: 5rem; */
+  /* TODO(ntarn): Check if this may be needed. */
+  /* margin-bottom: 5rem; */
 }
 
 .projects-section {
