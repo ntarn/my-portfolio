@@ -2392,8 +2392,7 @@ textarea.form-control {
 
 .form-inline {
   display: flex;
-  flex-flow: row wrap;
-  align-items: center;
+  flex-direction: column;
 }
 .form-inline .form-check {
   width: 100%;
@@ -10271,16 +10270,17 @@ body {
 }
 
 .about-section {
-  padding-top: 10rem;
   background: linear-gradient(to bottom, #000000 0%, rgba(0, 0, 0, 0.9) 75%, rgba(0, 0, 0, 0.8) 100%);
+  padding-bottom: 10rem;
+  padding-top: 10rem;
 }
 .about-section p {
-  margin-bottom: 5rem;
+  /* TODO(ntarn): Check if this may be needed. */
+  /* margin-bottom: 5rem; */
 }
 
 .projects-section {
-  /* padding: 10rem 0; might need to switch back later*/
-  margin-top: 10rem;
+  padding-top: 10rem;
 }
 .projects-section .featured-text {
   padding: 2rem;
@@ -10326,7 +10326,7 @@ body {
 }
 
 .contact-section {
-  padding-top: 5rem;
+  padding-top: 1rem;
 }
 .contact-section .card {
   border: 0;

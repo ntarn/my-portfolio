@@ -17,7 +17,7 @@
         <link href="css/customstyles.css" rel="stylesheet" />
         <link href="css/styles.css" rel="stylesheet" />
     </head>
-    <body id="page-top" onload="loadComments(); fetchBlobstoreUrlAndShowForm();">
+    <body class="full-screen-image" id="page-top" onload="loadComments(); fetchBlobstoreUrlAndShowForm();">
         <!-- Navigation-->
         <nav class="navbar navbar-expand-lg navbar-light fixed-top" id="mainNav">
             <div class="container">
@@ -33,23 +33,21 @@
             </div>
         </nav>
         <!-- Contact Section -->
-        <section class="signup-section" id="contact">
+        <section class="signup-section full-screen" id="contact">
             <div class="container">
                 <div class="row">
                     <div class="col-md-10 col-lg-8 mx-auto text-center">
                         <i class="far fa-paper-plane fa-2x mb-2 text-white"></i>
                         <h2 class="text-white mb-5">Get In Touch</h2>
                         <form id="my-form" class="form-inline d-flex" method="POST" enctype="multipart/form-data">
-                          <input class="form-control flex-fill mr-0 mr-sm-2 mb-3 mb-sm-0" id="inputEmail" name="text-input" type="" placeholder="Enter email address and comment..."/>
-                          <br/>
-                          <p>Upload an image:</p>
-                          <input type="file" name="image" onchange="fetchBlobstoreUrlAndShowForm()">
-                          <br/><br/>
-                          <button class="btn btn-primary mx-auto" type="submit" onclick="fetchBlobstoreUrlAndShowForm()">Comment</button>
+                          <input class="form-control flex-fill mr-0 mb-3 mb-sm-0" id="inputEmail" name="text-input" type="" placeholder="Enter email address and comment..." />
+                          <div id="overwrite-center">
+                            <input class="flex-fill mr-0 mr-sm-2 mb-3 mb-sm-0" id="control-image" type="file" name="image" onchange="fetchBlobstoreUrlAndShowForm()">
+                            <button class="btn btn-primary mx-auto" id="float-right" type="submit" onclick="fetchBlobstoreUrlAndShowForm()">Submit</button>
+                          </div>
                         </form> 
-                        <p>Choose max number of comments to display:</p>
                         <select id="max-comments" name="max-comments" class="form-control" onchange="loadComments()">
-                          <option id ="default-max" value="-1">Choose an Option</option>
+                          <option id ="default-max" value="-1">Choose the maximum number of comments to display</option>
                           <option value="1">1</option>
                           <option value="2">2</option>
                           <option value="3">3</option>

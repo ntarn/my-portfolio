@@ -46,7 +46,7 @@
                 </div>
             </div>
         </header>
-        <!-- TODO(ntarn): Add bullet point of technologies. -->
+        <!-- TODO(ntarn): Change to bullet points of technologies. -->
         <!-- About-->
         <section class="about-section text-left" id="about">
             <div class="container">
@@ -56,14 +56,20 @@
                         <h2 class="text-white mb-4">About Me</h2>
                         <p class="text-white-50">I am a learner who grows in challenging work environments. I chose computer science and biology as my majors to help people and the planet, whether it's 
                             <a href="#projects"> digitalizing the collection of bird population data </a> or identifying energy infrastructures through computer vision.
-                            Here are a few technologies I’ve been working with recently: The theme is open source, and you can use it for any purpose, personal or commercial.
-                            asdfasdfasdfasdfasfd 
+                            Here are a few technologies I’ve worked with:
+                        </p>
+                        <p class="text-white" style="visibility: visible; opacity: 1; transform: matrix3d(1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1); transition: opacity 0.4s cubic-bezier(0.5, 0, 0, 1) 0s, transform 0.4s cubic-bezier(0.5, 0, 0, 1) 0s;">Languages:</p>
+                        <p class="text-white-50" style="visibility: visible; opacity: 1; transform: matrix3d(1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1); transition: opacity 0.4s cubic-bezier(0.5, 0, 0, 1) 0s, transform 0.4s cubic-bezier(0.5, 0, 0, 1) 0s;">Proficient in Java | Python <br> 
+                          Familiar with C | R | HTML | CSS | Javascript | C++ | MIPS
+                        </p>
+                        <p class="text-white" style="visibility: visible; opacity: 1; transform: matrix3d(1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1); transition: opacity 0.4s cubic-bezier(0.5, 0, 0, 1) 0s, transform 0.4s cubic-bezier(0.5, 0, 0, 1) 0s;">Software:</p>
+                        <p class="text-white-50" style="visibility: visible; opacity: 1; transform: matrix3d(1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1); transition: opacity 0.4s cubic-bezier(0.5, 0, 0, 1) 0s, transform 0.4s cubic-bezier(0.5, 0, 0, 1) 0s;">Intellij IDEA | Eclipse | bash | git |
+                          RStudio | Android Studio | Jupyter Notebook | AWS API Gateway
                         </p>
                     </div>
                 </div>
             </div>
         </section>
-        <!-- TODO(ntarn): Change descriptions to bullet points. -->
         <!-- Projects-->
         <section class="projects-section bg-light" id="projects">
             <div class="container">
@@ -77,7 +83,10 @@
                     <div class="col-xl-4 col-lg-5">
                         <div class="featured-text text-center text-lg-left">
                             <h4>Front End @ Google</h4>
-                            <p class="text-black-50 mb-0">Developed this portfolio, Implemented a web application that does X, Y and Zssssss.</p>
+                            <ul class="text-black-50 mb-0">
+                              <li>Implementing a web application that show sentiment heat maps of tweets</li>
+                              <li>Developed this portfolio</li>
+                            </ul>
                             <hr class="d-none d-lg-block mb-0 ml-0" />
                             <div class="social d-flex justify-content-start">
                                 <a href="https://github.com/ntarn"><i class="fab fa-github"></i></a>
@@ -97,16 +106,17 @@
                             <div class="d-flex h-100">
                                 <div class="project-text w-100 my-auto text-center text-lg-left">
                                     <h4 class="text-white">Full Stack @ AiCure</h4>
-                                    <p class="mb-0 text-white-50">Built product features from the database all the way to UI, Implemented e2e UI automation testing framework, Built AWS API gateway integration testing framework, 
-                                      Developed ETL tools to support our application testing environment data setup and migration
-                                    </p>
+                                      <ul class="mb-0 text-white-50">
+                                        <li>Built AWS API gateway integration testing framework for microservices ranging from medication notification service to the orchestration service</li>
+                                        <li>Developed product features spanning from the database to the UI</li>
+                                        <li>Implemented e2e UI automation testing framework</li>
+                                      </ul>
                                     <hr class="d-none d-lg-block mb-0 ml-0" />
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
-                <!-- TODO(ntarn): Add link to paper. -->
                 <!-- Project Two Row-->
                 <div class="row justify-content-center no-gutters">
                     <div class="col-lg-6"><div style="padding-top:5rem;">
@@ -117,10 +127,13 @@
                     <div class="col-lg-6 order-lg-first">
                         <div class="bg-black text-center h-100 project">
                             <div class="d-flex h-100">
-                                <div class="project-text w-100 my-auto text-center text-lg-right">
+                                <div class="project-text w-100 my-auto text-center text-lg-left">
                                     <h4 class="text-white">CodaLab Competition: Sarcasm Detection</h4>
-                                    <p class="mb-0 text-white-50">Implemented word, sentence-level embeddings, and attention LSTM models, ELMo embeddings with different classifiers using Python (keras, tensorflow) to detect sarcasm in tweets and Reddit posts, obtaining 8th place with a f1 score of 0.756
-                                    	Paper will be published at the FigLang 2020 which includes literature about different word embeddings, transformers (BERT, ELMo), and additional classifiers that further improved performance</p>
+                                    <ul class="mb-0 text-white-50">
+                                      <li>Implemented word, sentence-level embeddings, and attention LSTM models, ELMo embeddings with different classifiers using Python (keras, tensorflow) to detect sarcasm in tweets and Reddit posts</li>
+                                      <li>Obtained 8th place with a f1 score of 0.756</li>
+                                      <li>Published <a href="assets/Sarcasm_Paper.pdf">paper</a> at the FigLang 2020 which includes literature about different word embeddings, transformers (BERT, ELMo), and additional classifiers that further improved performance</li>
+                                    </ul>
                                     <hr class="d-none d-lg-block mb-0 mr-0" />
                                 </div>
                             </div>
@@ -141,7 +154,7 @@
                                 <h4 class="text-uppercase m-0">U.S. Fish and Wildlife Service Intern</h4>
                                 <hr class="my-4" />
                                 <div class="small text-black-50">Kilauea Point National Wildlife Refuge</div>
-                                <a href="">Learn more</a>
+                                <a href="https://www.linkedin.com/in/natalie-tarn">Learn more</a>
                             </div>
                         </div>
                     </div>
@@ -153,7 +166,7 @@
                                 <h4 class="text-uppercase m-0">Homework Helper</h4>
                                 <hr class="my-4" />
                                 <div class="small text-black-50">Website that generates study guides from notes</div>
-                                <a href="">Learn more</a>
+                                <a href="https://github.com/ntarn/homework-helper">Learn more</a>
                             </div>
                         </div>
                     </div>
@@ -164,7 +177,7 @@
                                 <h4 class="text-uppercase m-0">Company Footprint</h4>
                                 <hr class="my-4" />
                                 <div class="small text-black-50">Android app that shows environmental impacts of products' corporations</div>
-                                <a href="">Learn more</a>
+                                <a href="https://github.com/ARSA1996/CompanyFootprint3">Learn more</a>
                             </div>
                         </div>
                     </div>
@@ -178,13 +191,16 @@
                     <div class="col-md-10 col-lg-8 mx-auto text-center">
                         <i class="far fa-paper-plane fa-2x mb-2 text-white"></i>
                         <h2 class="text-white mb-5">Get In Touch</h2>
+                        <p class="text-white-50">I'm currently looking for summer internships for 2021 in data science and SWE. I'm also always open to conversation and feedback.
+                          The best way to contact me is through email, using the contact icons at the bottom. If just want to say hi, feel free to leave a comment!
+                        </p> 
+                        <br> 
                         <a href="comments.html" class="btn btn-primary mx-auto">Say Hello!</a>
                     </div>
                 </div>
             </div>
         </section>
         <div id="map"></div>
-        <!-- TODO(ntarn): Fix padding on contact icons. -->
         <section class="contact-section bg-black" id="">
           <div class="container">        
             <div class="social d-flex justify-content-center">
