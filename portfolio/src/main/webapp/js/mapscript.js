@@ -228,9 +228,9 @@ function createMap() {
     '</p>'+
     '</div>'+
     '</div>';
-  const DUKE_LANDMARK = new Landmark(36.001339, -78.938218, 'Duke University', DUKEDESCRIPTION);
-  addLandmark(map, SUNNYVALE.latitude, SUNNYVALE.longitude, SUNNYVALE.title, SUNNYVALE.description);
-  addLandmark(map, DUKE.latitude, DUKE.longitude, DUKE.title, DUKE.description);
+  const DUKE_LANDMARK = new Landmark(36.001339, -78.938218, 'Duke University', DUKE_DESCRIPTION);
+  addLandmark(map, SUNNYVALE_LANDMARK.latitude, SUNNYVALE_LANDMARK.longitude, SUNNYVALE_LANDMARK.title, SUNNYVALE_LANDMARK.description);
+  addLandmark(map, DUKE_LANDMARK.latitude, DUKE_LANDMARK.longitude, DUKE_LANDMARK.title, DUKE_LANDMARK.description);
 }
 
 /** Adds a marker that shows an info window when clicked. */
